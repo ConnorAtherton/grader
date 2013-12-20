@@ -1,0 +1,36 @@
+@import "../helpers/_colors.less";
+
+#page {
+  height: 100%;
+}
+
+#sidePanel {
+  float: left;
+  width: 15%;
+  background-color: @base-grey-1;
+  height: 100%;
+  padding: 30px 0;
+
+  & li {
+    width: 100%;
+    list-style: none;
+    height: 25px;
+    line-height: 25px;
+  }
+  & li:hover {
+    cursor: pointer;
+  }
+}
+
+#mainPanel {
+  width: 85%;
+  padding-right: 50px;
+  float: right;
+  border-left: darken(@base-grey-1, 225%);
+  height: 100%;
+
+  .content-inner {
+    margin-left: 50px;
+    padding: 30px 0;
+  }
+}

@@ -1,0 +1,139 @@
+/**
+*
+* scatter container styles
+*
+**/
+
+#progressScatter
+{
+  width: 900px;
+  height: auto;
+  margin: 0 auto;
+}
+
+/**
+*
+* Scatter svg
+*
+**/
+
+#progressScatter svg
+{
+  float: left;
+}
+
+/**
+*
+* Module list
+*
+**/
+
+#scatterListElement
+{
+  width: 250px;
+  height: 514px;
+  margin: 20px 0;
+  float: left;
+  background-color: #e8e8e8;
+  text-align: center;
+  overflow: scroll;
+}
+
+#scatterListElement .scatterCurrent
+{
+  color: white;
+  background-color: #f7505a;
+}
+
+.scatterModule
+{
+  width: 100%;
+  height: 70px;
+  line-height: 50px;
+  color: red;
+  padding: 10px;
+
+}
+
+.scatterModule:hover
+{
+  cursor: pointer;
+  background-color: #e2e2e2;
+}
+
+/**
+*
+* percentage headers
+*
+**/
+
+#scatterCurrentElement, #scatterForecastElement
+{
+  height: 200px;
+  width: 50%;
+  float: left;
+  text-align: center;
+  margin: 40px 0;
+}
+
+#currentPercentEl, #forecastPercentEl
+{
+  font-size: 2.5em;
+}
+
+/**
+*
+* Scatter graph (axis, points, ticks etc)
+*
+**/
+
+.axis path, .axis line
+{
+  fill: none;
+  stroke: #e1e1e1;
+  shape-rendering: crispEdges;
+}
+
+.axis text
+{
+  font-size: 12px;
+}
+
+.scatterComplete
+{
+  fill: #f7505a;
+  z-index: 99;
+  shape-rendering: geometricPrecision;
+}
+
+.scatterIncomplete
+{
+  fill: white;
+  stroke: #f7505a;
+  stroke-width: 2px;
+  z-index: 99;
+  shape-rendering: geometricPrecision;
+}
+
+.scatterIncomplete:hover
+{
+  cursor: pointer;
+}
+
+.scatterline
+{
+  fill: none;
+  stroke-width: 2px;
+  stroke: #666;
+  z-index: -2;
+}
+
+#currentMark
+{
+  font-size: 35px;
+}
+
+
+
+
+

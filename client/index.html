@@ -1,0 +1,119 @@
+<head>
+  <link href='http://fonts.googleapis.com/css?family=Raleway:400,700' rel='stylesheet' type='text/css'>
+  <title>Meteor Application</title>
+</head>
+<body>
+</body>
+
+<template name="layout">
+  {{yield 'header'}}
+
+  <section id="page" class="cf">
+    {{yield}}
+  </section>
+
+</template>
+
+<template name="pageNotLoggedIn">
+  {{> header}}
+  <p>Your not logged in mister!</p>
+</template>
+
+<template name="pageLoggedIn">
+  {{yield 'sidePanel'}}
+  <div id="mainPanel">
+    {{yield 'mainPanel'}}
+  </div>
+</template>
+
+
+<template name="sidePanel">
+  <div id="sidePanel">
+    <ul class="actions">
+      <li class="action">
+        <a class="action" id="show-dashboard" href="{{pathFor 'showDashboard'}}">modify data</a>
+      </li>
+      <li class="action">
+        <a class="action" id="view-pies" href="{{pathFor 'showPies'}}">view pie charts</a>
+      </li>
+      <li class="action">
+        <a class="action" id="view-force" href="{{pathFor 'showForce'}}">view force graph</a>
+      </li>
+      <li class="action">
+        <a class="action" id="view-scatter" href="{{pathFor 'showScatter'}}">view scatter</a>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<template name="mainPanel">
+    <div id="mainPanel">
+      <p>Main Panel</p>
+    </div>
+</template>
+
+<template name="header">
+  <header class="navbar">
+    <div class="navbar-inner">
+      <div class="container">
+        <div class="pull-right">
+          {{loginButtons}}
+        </div>
+      </div>
+    </div>
+  </header>
+</template>
+
+<template name="showDashboard">
+  {{yield 'sidePanel'}}
+  <div id="mainPanel">
+    <div class="content-inner">
+
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="input-group">
+            <input type="text" class="form-control name">
+            <span class="input-group-btn">
+              <button class="btn btn-primary createModule" type="button">Create module</button>
+            </span>
+          </div><!-- /input-group -->
+        </div><!-- /.col-lg-6 -->
+        <div class="col-lg-6">
+          <p class="pull-right text-right">show some view setting here</p>
+        </div><!-- /.col-lg-6 -->
+      </div><!-- /.row -->
+
+      {{#each modules}}
+        <div class="module">
+          {{> module}}
+        </div>
+      {{/each}}
+
+    </div>
+  </div>
+</template>
+
+<template name="module">
+  {{name}}
+</template>
+
+<template name="showPies">
+  {{yield 'sidePanel'}}
+  <div id="mainPanel">
+    <section class="progressPie"></section>
+  </div>
+</template>
+
+<template name="showForce">
+  {{yield 'sidePanel'}}
+  <div id="mainPanel">
+    <section class="progressForce"></section>
+  </div>
+</template>
+
+<template name="showScatter">
+  {{yield 'sidePanel'}}
+  <div id="mainPanel">
+    <section class="progressScatter"></section>
+  </div>
+</template>

@@ -1,0 +1,131 @@
+/**
+*
+* pie charts container styles
+*
+**/
+
+#progressPie
+{
+  width: 900px;
+  margin: 0 auto;
+  height: auto;
+  position: relative;
+}
+
+/**
+*
+* individual pie charts styles
+*
+**/
+
+// render crisp edges for pies
+.progressPieMarks path
+{
+  shape-rendering: geometricPrecision;
+}
+
+// colour scheme for overall marks pie
+
+.progressPieMarks path:nth-of-type(1)
+{
+  fill: #f7505a;
+}
+.progressPieMarks path:nth-of-type(2)
+{
+  fill: #e1e1e1;
+  pointer-events: none;
+}
+
+// colour scheme for overall marks pie
+
+.progressPieWeights path:nth-of-type(1)
+{
+  fill: #f7505a;
+}
+
+.progressPieWeights path:nth-of-type(2)
+{
+  fill: #3ab7ef;
+}
+
+.progressPieWeights path:nth-of-type(3)
+{
+  fill: #37EC15;
+}
+
+.progressPieWeights path:nth-of-type(4)
+{
+  fill: #ffc600;
+}
+
+.progressPieWeights path:nth-of-type(5)
+{
+  fill: #cd35d3;
+}
+
+.progressPieWeights path:nth-of-type(6)
+{
+  fill: #ff7400;
+}
+
+.progressPieWeights path:nth-of-type(7)
+{
+  fill: #911911;
+}
+
+.progressPieWeights path:nth-of-type(8)
+{
+  fill: #aec7e8;
+}
+
+/**
+*
+* Styles for text elements inside of pie charts
+*
+**/
+
+#progressPie svg > text
+{
+  text-anchor: middle;
+  alignment-baseline: middle;
+
+}
+
+.pieMarkPercentage:after
+{
+  content: '%';
+  display: block;
+}
+
+#progressPieClickTarget
+{
+  height: 60px;
+  line-height: 60px;
+  margin: 25px auto;
+  width: 200px;
+  color: white;
+  text-align: center;
+  display: block;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  transition: all 0.2s;
+  background-color: #f7505a;
+  position: relative;
+
+  @include box-shadow(#ab3c3c 0 5px);
+  @include border-radius(3px);
+}
+
+#progressPieClickTarget:hover
+{
+  top: 2px;
+  box-shadow: 0 3px #ab3c3c;
+  cursor: pointer;
+  color: white;
+}
+
+
+
+
+
+
