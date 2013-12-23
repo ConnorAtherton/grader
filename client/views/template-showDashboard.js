@@ -50,8 +50,10 @@ Template.showDashboard.events({
     Session.set('creatingModule', true);
     Session.set('viewingModule', false);
     console.log('we are trying to create a module');
-
-    $('.content-inner > #viewModule').modal()
+    // Short delay to let things settle before displaying the modal.
+    Meteor.setTimeout(function(){
+      $('#viewModule').modal('show')
+    }, 100)
   }
 });
 
