@@ -65,36 +65,89 @@
 </template>
 
 <template name="showDashboard">
+
   {{yield 'sidePanel'}}
   <div id="mainPanel">
     <div class="content-inner">
 
       <div class="row">
-        <div class="col-lg-6">
-          <div class="input-group">
-            <input type="text" class="form-control name">
-            <span class="input-group-btn">
-              <button class="btn btn-primary createModule" type="button">Create module</button>
-            </span>
-          </div><!-- /input-group -->
+        <div class="col-lg-6 col-sm-12">
+          <button class="btn btn-success createModule" type="button">Create Module</button>
         </div><!-- /.col-lg-6 -->
-        <div class="col-lg-6">
+        <div class="col-lg-6 visible-md visible-lg">
           <p class="pull-right text-right">show some view setting here</p>
         </div><!-- /.col-lg-6 -->
       </div><!-- /.row -->
 
+      <hr>
+
       {{#each modules}}
-        <div class="module">
-          {{> module}}
+        <div class="module" data-id="{{_id}}">
+          <div class="col-xs-12">
+            <div class="col-sm-6 moduleTitle">
+              {{name}}
+            </div>
+            <div class="col-sm-6">
+              <button class="btn btn-primary editModule" type="button" data-toggle="modal" data-target="#moduleModal">Edit module</button>
+              <button class="btn btn-error deleteModule" type="button">Delete module</button>
+            </div>
+          </div>
+          {{#each workData this}}
+            <div class="work">
+              {{> work}}
+            </div>
+          {{/each}}
         </div>
       {{/each}}
+
+      {{> modal}}
 
     </div>
   </div>
 </template>
 
-<template name="module">
+<template name="work">
   {{name}}
+  {{mark}}
+  {{weight}}
+</template>
+
+<template name="modal">
+  <div id="viewModule" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        {{#if viewingModule}}
+          {{#with module}}
+            <div class="modal-header">
+              <button type="button" class="close closeModuleView" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">{{name}}</h4>
+            </div>
+            <div class="modal-body">
+              <p>We are trying to <strong>view</strong> a module</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default closeModuleView" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          {{/with}}
+        {{/if}}
+
+        {{#if creatingModule}}
+            <div class="modal-header">
+              <button type="button" class="close closeModuleCreate" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">Create new Module</h4>
+            </div>
+            <div class="modal-body">
+              <p>We are trying to <strong>create</strong> a module</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default closeModuleCreate" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        {{/if}}
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 </template>
 
 <template name="showPies">

@@ -1,26 +1,66 @@
 Template.showDashboard.events({
-  'click .createModule': function (evt, tmpl) {
+  'click .createModal': function (evt, tmp) {
+
     // get modules name
-    var name = tmpl.find('input.name').value;
+    var name = tmp.find('input.name').value;
 
     if(name.trim() === '')
-      return 'you must enter a module name';
+      return;
 
     var user = Meteor.user();
 
     Modules.insert({
       name: name,
       user_id: user._id,
-      timestamp: (new Date()).getTime()
-    });
+      work: {
+        name: name,
+        weight: tmp.find('input.weight').value,
+        overallMark: tmp.find('input.mark').value,
+        workData: {}
+      }
+    })
 
-    tmpl.find('input.name').value = '';
+    $(tmp).find('#createModal').modal();
 
+    tmp.find('input.name').value = '';
+
+  },
+
+  'click .moduleTitle': function(evt) {
+    var $module,
+        moduleId;
+
+    evt.preventDefault();
+
+    $module = $(evt.target).closest('.module')
+    moduleId = $module.attr('data-id')
+
+    console.log('we are trying to view module ' + moduleId);
+
+    // set session variables
+    Session.set('selectedModule', moduleId);
+    Session.set('viewingModule', true);
+    Session.set('creatingModule', false);
+
+    $('.content-inner > #viewModule').modal()
+
+  },
+
+  'click .createModule': function() {
+    Session.set('creatingModule', true);
+    Session.set('viewingModule', false);
+    console.log('we are trying to create a module');
+
+    $('.content-inner > #viewModule').modal()
   }
 });
 
 Template.showDashboard.modules = function () {
   return Modules.find({}, {sort: {name: 1}}).fetch();
+};
+
+Template.showDashboard.rendered = function () {
+  // reset all session variables
 };
 
 

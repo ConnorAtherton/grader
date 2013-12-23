@@ -1089,39 +1089,19 @@ Progress = (function(opts) {
 
     });
 
-    // json.forEach( function(module, index, array) {
-
-    //     for( var workName in module.work)
-    //     {
-    //       // push assessment names to tmp array
-    //       tmpNames.push(workName);
-
-    //       for( var key in module.work[workName])
-    //       {
-    //         if( key === 'mark')
-    //           tmpMarks.push(module.work[workName][key]);
-    //         else
-    //           tmpWeights.push(module.work[workName][key]);
-
-    //       }
-    //     }
-
-    //     // overide what the work object was
-    //     module.work = {},
-
-    //     // assign new arrays to object properties
-    //     module.work.names = tmpNames,
-    //     module.work.weights = tmpWeights,
-    //     module.work.marks = tmpMarks;
-
-    // }, this);
-
     return json;
 
   }
 
   // tooltip functions
   function createTooltip() {
+
+    var existing = d3.select('.tooltip');
+    console.log(existing[0][0]);
+
+    if(existing[0][0] !== null) {
+      return _tooltip = existing[0][0];
+    }
 
     // create the tooltip, hide it and append it to the dom
     _tooltip = d3.select("body").append("div")
