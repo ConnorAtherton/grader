@@ -32,7 +32,6 @@ Progress = (function(opts) {
       }
 
       var copy = jQuery.extend(true, {}, opts.data);
-      console.log(copy)
       getData(opts.data);
 
     } catch(e) {
@@ -49,14 +48,14 @@ Progress = (function(opts) {
       force = {};
 
   pie.vars = {
+        pieEl: opts.piePlaceholder || document.createElement('div'),
         drawn: false,
         status: 'marks',
         svgWidth : 750,
-        pieWidth: 180,
+        pieWidth:  180,
         pieHeight : 180,
         outerRadius : 75,
         innerRadius: 68,
-        pieEl: opts.piePlaceholder || document.createElement('div'),
         paths: null,
         svg: null,
         text: null,
@@ -134,6 +133,8 @@ Progress = (function(opts) {
         **/
 
         pie.updateWeights = function(that) {
+
+          console.log(_data);
 
           pie.vars.clickTarget.innerHTML = 'Show Overall Mark';
 
@@ -456,7 +457,6 @@ Progress = (function(opts) {
       .remove();
 
     if(scatter.currentModuleName !== 'overall') {
-      console.log(scatter.currentModuleName);
       scatter.vars.svg.selectAll('.scatterIncomplete').call(drag);
     }
     // var incompletes = scatter.vars.svg.selectAll('.scatterIncomplete').call(drag);
@@ -762,12 +762,9 @@ Progress = (function(opts) {
         weightfactor += weights[i];
       };
 
-      console.log(weightfactor);
-
       // finally divide the foreacast by the weight factor..
       forecast /= weightfactor;
 
-      console.log('the forcast is ' + forecast);
 
       // .. and return it
       return forecast;
@@ -998,7 +995,6 @@ Progress = (function(opts) {
 
       // save the data into a module var to be used elsewhere
       _data = arrayify(json);
-      console.log(_data);
       showGraphs();
 
     });
@@ -1058,8 +1054,6 @@ Progress = (function(opts) {
   **/
   function arrayify(json) {
 
-    console.log(json);
-
     $.each(json, function(key, module){
 
         // console.log( module );
@@ -1097,7 +1091,6 @@ Progress = (function(opts) {
   function createTooltip() {
 
     var existing = d3.select('.tooltip');
-    console.log(existing[0][0]);
 
     if(existing[0][0] !== null) {
       return _tooltip = existing[0][0];

@@ -1,0 +1,41 @@
+@import "../helpers/_colors.less";
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+ }
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 768px) {
+
+  #sidePanel {
+    width: 100%;
+    height: auto;
+    background-color: @base-grey-1;
+    padding: 15px 0;
+
+    & .actions {
+      padding: 0 20px;
+      width: 100%;
+
+      & li {
+        float: left;
+        display: inline-block;
+        text-align: center;
+        width: 25%;
+        list-style: none;
+        height: 25px;
+        line-height: 25px;
+      }
+    }
+
+  }
+
+  #mainPanel {
+    width: 100%;
+    padding:50px 0;
+
+    .content-inner {
+
+    }
+  }
+ }

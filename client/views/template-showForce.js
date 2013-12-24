@@ -2,6 +2,16 @@ Template.showForce.rendered = function () {
   var state = Router.current();
 
   if(state === null) return;
-  createProgressGraphs(state.path.substring(1));
+
+  var timeout = Meteor.setInterval(function(){
+
+    if(_subscriptionComplete) {
+      // call it in here
+      createProgressGraphs(state.path.substring(1));
+      Meteor.clearInterval(timeout);
+    }
+
+  }, 100);
+
 
 };

@@ -35,25 +35,30 @@ Template.showDashboard.events({
     $module = $(evt.target).closest('.module')
     moduleId = $module.attr('data-id')
 
-    console.log('we are trying to view module ' + moduleId);
-
     // set session variables
     Session.set('selectedModule', moduleId);
     Session.set('viewingModule', true);
     Session.set('creatingModule', false);
 
-    $('.content-inner > #viewModule').modal()
+    Meteor.setTimeout(function(){
+      $('#viewModule').modal('show')
+    }, 100)
 
   },
 
   'click .createModule': function() {
     Session.set('creatingModule', true);
     Session.set('viewingModule', false);
-    console.log('we are trying to create a module');
+
     // Short delay to let things settle before displaying the modal.
     Meteor.setTimeout(function(){
       $('#viewModule').modal('show')
     }, 100)
+
+  },
+
+  'click .deleteModule': function() {
+    Modules.remove(this._id);
   }
 });
 

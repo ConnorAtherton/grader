@@ -71,7 +71,7 @@
     <div class="content-inner">
 
       <div class="row">
-        <div class="col-lg-6 col-sm-12">
+        <div class="col-lg-6 col-sm-6">
           <button class="btn btn-success createModule" type="button">Create Module</button>
         </div><!-- /.col-lg-6 -->
         <div class="col-lg-6 visible-md visible-lg">
@@ -88,15 +88,9 @@
               {{name}}
             </div>
             <div class="col-sm-6">
-              <button class="btn btn-primary editModule" type="button" data-toggle="modal" data-target="#moduleModal">Edit module</button>
               <button class="btn btn-error deleteModule" type="button">Delete module</button>
             </div>
           </div>
-          {{#each workData this}}
-            <div class="work">
-              {{> work}}
-            </div>
-          {{/each}}
         </div>
       {{/each}}
 
@@ -107,9 +101,17 @@
 </template>
 
 <template name="work">
-  {{name}}
-  {{mark}}
-  {{weight}}
+  <div class="work">
+    <div class="col-xs-4">
+      {{name}}
+    </div>
+    <div class="col-xs-4">
+      {{weight}}
+    </div>
+    <div class="col-xs-4">
+      {{mark}}
+    </div>
+  </div>
 </template>
 
 <template name="modal">
@@ -123,10 +125,30 @@
               <h4 class="modal-title">{{name}}</h4>
             </div>
             <div class="modal-body">
-              <p>We are trying to <strong>view</strong> a module</p>
+              <div class="work">
+                {{#each work}}
+                  {{> work}}
+                {{/each}}
+              </div>
+
+              <div class="addNewWork">
+                <hr />
+                <div class="input-group col-xs-12">
+                  <input type="text" class="form-control workName input-block-level" placeholder="Work name">
+                </div>
+                <div class="input-group">
+                  <input type="text" class="form-control workWeight" placeholder="Work weight">
+                  <span class="input-group-addon">%</span>
+                </div>
+                <div class="input-group">
+                  <input type="text" class="form-control workMark" placeholder="Current Overall Mark">
+                  <span class="input-group-addon">%</span>
+                </div>
+              </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default closeModuleView" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-success pull-left addWork">Add work</button>
+              <button type="button" class="btn btn-default closeModuleView " data-dismiss="modal">Close</button>
               <button type="button" class="btn btn-primary">Save changes</button>
             </div>
           {{/with}}
@@ -137,12 +159,29 @@
               <button type="button" class="close closeModuleCreate" data-dismiss="modal" aria-hidden="true">&times;</button>
               <h4 class="modal-title">Create new Module</h4>
             </div>
-            <div class="modal-body">
-              <p>We are trying to <strong>create</strong> a module</p>
+            <div class="modal-body cf">
+              <div class="input-group col-xs-12">
+                <input type="text" class="form-control moduleName input-block-level" placeholder="Module name">
+              </div>
+              <div class="input-group">
+                <input type="text" class="form-control moduleWeight" placeholder="Module weight">
+                <span class="input-group-addon">%</span>
+              </div>
+                <div class="workGroup">
+                  <div class="input-group col-xs-5 pull-left">
+                    <input type="text" class="form-control moduleMark" placeholder="Current Overall Mark">
+                    <span class="input-group-addon">%</span>
+                  </div>
+                  <div class="col-xs-2 orChoice text-center pull-left"><strong>or</strong></div>
+                  <div class="col-xs-5 pull-left">
+                      <input type="radio" class="pull-left radioIncomplete">
+                      <div class="orChoice pull-left">Incomplete</div>
+                  </div>
+                </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default closeModuleCreate" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="button" class="btn btn-primary saveModule">Save changes</button>
             </div>
         {{/if}}
       </div><!-- /.modal-content -->
