@@ -134,8 +134,6 @@ Progress = (function(opts) {
 
         pie.updateWeights = function(that) {
 
-          console.log(_data);
-
           pie.vars.clickTarget.innerHTML = 'Show Overall Mark';
 
           var pieData = [];
@@ -259,7 +257,10 @@ Progress = (function(opts) {
                 markEl = document.createElementNS(svgns, 'text');
 
             nameNode = document.createTextNode( moduleNames[i][0] );
-            markNode = document.createTextNode( moduleNames[i][1] + '%' );
+
+            // if module percent is null set it to not complete
+            markNode = moduleNames[i][1] === null ? document.createTextNode( 'No mark yet')
+                                                  : document.createTextNode( moduleNames[i][1] + '%' );
 
             nameEl.appendChild(nameNode);
             markEl.appendChild(markNode);
@@ -626,7 +627,7 @@ Progress = (function(opts) {
         var tmpEl = document.createElement('div');
         tmpEl.innerHTML = value.name;
         tmpEl.classList.add('scatterModule');
-        tmpEl.classList.add(value.name);
+        // tmpEl.classList.add(value.name);
 
         // append the module to the list in the DOM
         scatter.vars.scatterListEl.appendChild(tmpEl);

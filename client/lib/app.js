@@ -5,4 +5,3 @@ Meteor.subscribe('modules', function() {
   _subscriptionComplete = true;
 });
 
-console.log(_subscriptionComplete);

@@ -1,22 +1,3 @@
-// Template.modal.events({
-//   'click .saveWork': function(evt, tmp) {
-//     console.log(this);
-//     // get form variables
-//     var name = tmp.find('input.workName').value,
-//         weight = tmp.find('input.workWeight').value,
-//         mark = tmp.find('input.workMark').value;
-
-//     var curWork = this.work.workData;
-
-//     curWork[name] = {
-//       'weight': weight,
-//       'mark': mark
-//     };
-
-//     Modules.update(this._id, {$set: {work: {workData: curWork} } });
-//   }
-// });
-
 "use strict"
 
 ////////////////////////////////////////////////////////////
@@ -92,12 +73,13 @@ function saveModule(evt, tmp) {
   var name = tmp.find('input.moduleName').value,
       weight = tmp.find('input.moduleWeight').value,
       mark = tmp.find('input.moduleMark').value,
-      incomplete = $(tmp).find('input[name="incomplete"]').value;
+      incomplete = tmp.find('.incomplete');
 
-  console.log($(tmp).find('.radioIncomplete'));
+  // wrap node in jquery so when can use .is()
+  incomplete = $(incomplete);
 
-  if($(evt.target).closest('.radioIncomplete')) {
-    alert('incomplete fools!');
+  if(incomplete.is(':checked')) {
+    // no mark
     mark = null;
   }
 
