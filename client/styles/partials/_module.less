@@ -1,0 +1,19 @@
+@import "../helpers/_colors.less";
+
+.module {
+  height: 50px;
+  line-height: 50px;
+  padding: 0 12px;
+
+  .module-icons {
+    display: none;
+  }
+
+  &:hover {
+    background-color: @base-grey-1;
+
+    .module-icons {
+      display: block;
+    }
+  }
+}

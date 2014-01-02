@@ -5,3 +5,7 @@ Meteor.subscribe('modules', function() {
   _subscriptionComplete = true;
 });
 
+Meteor.startup(function() {
+
+});
+

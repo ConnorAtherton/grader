@@ -11,6 +11,7 @@ Template.showScatter.rendered = function () {
       Meteor.clearInterval(timeout);
     }
 
+
   }, 100);
 
 

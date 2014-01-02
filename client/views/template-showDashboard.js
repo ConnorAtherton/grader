@@ -26,7 +26,7 @@ Template.showDashboard.events({
 
   },
 
-  'click .moduleTitle': function(evt) {
+  'click .icon-pencil': function(evt) {
     var $module,
         moduleId;
 

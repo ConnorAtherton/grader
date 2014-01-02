@@ -1,12 +1,12 @@
 <head>
-  <link href='http://fonts.googleapis.com/css?family=Raleway:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Raleway:400,700|Roboto:400,900' rel='stylesheet' type='text/css'>
   <title>Meteor Application</title>
 </head>
 <body>
 </body>
 
 <template name="layout">
-  {{yield 'header'}}
+  {{> header}}
 
   <section id="page" class="cf">
     {{yield}}
@@ -15,8 +15,12 @@
 </template>
 
 <template name="pageNotLoggedIn">
-  {{> header}}
-  <p>Your not logged in mister!</p>
+  <div id="hero-wrap">
+    <div id="hero">
+      <h2 class="responsiveHeader">A better way to view grades on the web.</h2>
+      <p class="coming-soon">COMING JANUARY 2014...</p>
+    </div>
+  </div>
 </template>
 
 <template name="pageLoggedIn">
@@ -31,16 +35,28 @@
   <div id="sidePanel">
     <ul class="actions">
       <li class="action">
-        <a class="action" id="show-dashboard" href="{{pathFor 'showDashboard'}}">modify data</a>
+        <a class="" id="show-dashboard" href="{{pathFor 'showDashboard'}}">
+          <div class="icon icon-equalizer"></div>
+          <p>Modify data</p>
+        </a>
       </li>
       <li class="action">
-        <a class="action" id="view-pies" href="{{pathFor 'showPies'}}">view pie charts</a>
+        <a class="" id="view-pies" href="{{pathFor 'showPies'}}">
+          <div class="icon icon-chart-pie-1"></div>
+          <p>Pie charts</p>
+        </a>
       </li>
       <li class="action">
-        <a class="action" id="view-force" href="{{pathFor 'showForce'}}">view force graph</a>
+        <a class="" id="view-force" href="{{pathFor 'showForce'}}">
+          <div class="icon icon-flow-tree"></div>
+          <p>Force graph</p>
+        </a>
       </li>
       <li class="action">
-        <a class="action" id="view-scatter" href="{{pathFor 'showScatter'}}">view scatter</a>
+        <a class="" id="view-scatter" href="{{pathFor 'showScatter'}}">
+          <div class="icon icon-chart-line"></div>
+          <p>Scatter graph</p>
+        </a>
       </li>
     </ul>
   </div>
@@ -83,12 +99,13 @@
 
       {{#each modules}}
         <div class="module" data-id="{{_id}}">
-          <div class="col-xs-12">
-            <div class="col-sm-6 moduleTitle">
+          <div>
+            <div>
               {{name}}
-            </div>
-            <div class="col-sm-6">
-              <button class="btn btn-error deleteModule" type="button">Delete module</button>
+              <div class="module-icons pull-right">
+                <div class="icon-pencil module-icon editModule"></div>
+                <div class="icon-cancel module-icon deleteModule"></div>
+              </div>
             </div>
           </div>
         </div>

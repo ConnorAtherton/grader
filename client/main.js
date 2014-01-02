@@ -4,11 +4,11 @@ Meteor.startup(function() {
         var keys = _.keys(this.work.workData),
             data = _.toArray(this.work.workData);
 
-        for(var i = 0; i < data.length; i++) {
+        for (var i = 0; i < data.length; i++) {
             data[i].name = keys[i];
         }
 
-      return data;
+        return data;
     });
 
 });
@@ -17,11 +17,6 @@ Meteor.startup(function() {
 // Use mainPanel because most routes will use it...
 Router.configure({
     layoutTemplate: 'layout',
-    yieldTemplates: {
-        header: {
-            to: 'header'
-        }
-    },
     before: function() {
         var user = Meteor.user();
         if (!user) {
@@ -37,9 +32,6 @@ Router.map(function() {
         path: '/',
         template: 'pageLoggedIn',
         yieldTemplates: {
-            header: {
-                to: 'header'
-            },
             sidePanel: {
                 to: 'sidePanel'
             },
@@ -48,7 +40,7 @@ Router.map(function() {
             }
         },
         before: function() {
-            if(Meteor.user()) {
+            if (Meteor.user()) {
                 // redirect to the dashboard page
                 Router.go('showDashboard');
                 this.stop();
@@ -65,9 +57,6 @@ Router.map(function() {
     this.route('showDashboard', {
         path: '/dashboard',
         yieldTemplates: {
-            header: {
-                to: 'header'
-            },
             sidePanel: {
                 to: 'sidePanel'
             }
@@ -77,9 +66,6 @@ Router.map(function() {
     this.route('showPies', {
         path: '/pie',
         yieldTemplates: {
-            header: {
-                to: 'header'
-            },
             sidePanel: {
                 to: 'sidePanel'
             }
@@ -89,9 +75,6 @@ Router.map(function() {
     this.route('showForce', {
         path: '/force',
         yieldTemplates: {
-            header: {
-                to: 'header'
-            },
             sidePanel: {
                 to: 'sidePanel'
             }
@@ -101,9 +84,6 @@ Router.map(function() {
     this.route('showScatter', {
         path: '/scatter',
         yieldTemplates: {
-            header: {
-                to: 'header'
-            },
             sidePanel: {
                 to: 'sidePanel'
             }

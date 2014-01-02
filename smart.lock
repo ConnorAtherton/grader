@@ -5,7 +5,8 @@
       "handlebar-helpers": {},
       "bootstrap-3": {},
       "accounts-ui-bootstrap-3": {},
-      "iron-router": {}
+      "iron-router": {},
+      "fittext": {}
     },
     "packages": {
       "handlebar-helpers": {
@@ -27,6 +28,11 @@
         "git": "https://github.com/EventedMind/iron-router.git",
         "tag": "v0.6.1",
         "commit": "4e1ee0581d68bff422a915dacb0bd30eae10fe08"
+      },
+      "fittext": {
+        "git": "https://github.com/dbubs/meteor-fittext.git",
+        "tag": "v1.2.0.2",
+        "commit": "025eb22b0b686ae8b6c03a8c8ef13e291084307b"
       }
     }
   }
