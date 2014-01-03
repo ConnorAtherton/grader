@@ -8,7 +8,8 @@ Progress = (function(opts) {
       _hasGlobalElement = false,
       _tooltip,
       _data = null,
-      _converter = opts.converter || converter;
+      _converter = opts.converter || converter,
+      width = getWidth() - 30;
 
   // d3 global variables
   var _color = d3.scale.category20(),
@@ -51,11 +52,11 @@ Progress = (function(opts) {
         pieEl: opts.piePlaceholder || document.createElement('div'),
         drawn: false,
         status: 'marks',
-        svgWidth : 750,
-        pieWidth:  180,
-        pieHeight : 180,
-        outerRadius : 75,
-        innerRadius: 68,
+        svgWidth : width,
+        pieWidth:  getPieWidth(),
+        pieHeight : getPieWidth(),
+        outerRadius : (getPieWidth() / 2) - 5,
+        innerRadius: (getPieWidth() / 2) - 12,
         paths: null,
         svg: null,
         text: null,
@@ -86,6 +87,8 @@ Progress = (function(opts) {
             // Append created DOM element to the element used for the plugin.
             pie.vars.pieEl.setAttribute('id', 'progressPie');
             pie.vars.pieEl.classList.add('progressPieMarks');
+
+            $(pie.vars.pieEl).width( getWidth() );
 
             if(_hasGlobalElement)
               _globalElement.appendChild( pie.vars.pieEl );
@@ -284,8 +287,8 @@ Progress = (function(opts) {
     drawn: false,
     svg: null,
     circles: null,
-    width: 650,
-    height: 550,
+    width: width,
+    height: width > 600 ? 600 : 300,
     padding: 35,
     scatterEl: opts.scatterPlaceholder || document.createElement('div'),
     scatterCurrentPercentEl: document.createElement('div'),
@@ -312,8 +315,8 @@ Progress = (function(opts) {
     scatter.populateModules();
 
     // create all elements
-    scatter.vars.scatterCurrentPercentEl.innerHTML = '<h2>Current Percentage</h2>';
-    scatter.vars.scatterForecastPercentEl.innerHTML = '<h2>Forecasted Percentage</h2>';
+    scatter.vars.scatterCurrentPercentEl.innerHTML = '<h2>Current</h2>';
+    scatter.vars.scatterForecastPercentEl.innerHTML = '<h2>Forecasted</h2>';
 
     scatter.vars.currentPercentEl.setAttribute('id', 'currentPercentEl');
     scatter.vars.forecastPercentEl.setAttribute('id', 'forecastPercentEl');
@@ -324,14 +327,11 @@ Progress = (function(opts) {
     scatter.addIDToDisplayElements();
 
     // append all elements to the scatter element before appending to page
-    scatter.vars.scatterEl.appendChild( scatter.vars.scatterCurrentPercentEl );
-    scatter.vars.scatterEl.appendChild( scatter.vars.scatterForecastPercentEl );
+    scatter.vars.scatterEl.appendChild( scatter.vars.scatterListEl );
 
     // draw the axis and data on to the svg
     scatter.createScatterGraph();
 
-    // append all elements to the scatter element before appending to page
-    scatter.vars.scatterEl.appendChild( scatter.vars.scatterListEl );
     scatter.vars.scatterEl.appendChild( scatter.vars.scatterCurrentPercentEl );
     scatter.vars.scatterEl.appendChild( scatter.vars.scatterForecastPercentEl );
 
@@ -478,7 +478,7 @@ Progress = (function(opts) {
 
     scatter.vars.svg = d3.select( scatter.vars.scatterEl )
       .append("svg")
-      .attr("width", scatter.vars.width)
+      .attr("width", scatter.vars.width - 30)
       .attr("height", scatter.vars.height);
 
     scatter.vars.xScale = d3.scale.ordinal()
@@ -774,8 +774,8 @@ Progress = (function(opts) {
   force.vars = {
     data: {},
     svg: null,
-    width: 900,
-    height: 700,
+    width: width,
+    height: width > 600 ? width : 600,
     forceEl: opts.forcePlaceholder || document.createElement('div'),
     charge: -4000,
     friction: 0.8,
@@ -1166,7 +1166,6 @@ Progress = (function(opts) {
       .on("dragend", dragended);
 
   function dragstarted(d, i) {
-    console.log('drag started ' + i);
     scatter.currentWork = i;
     d3.event.sourceEvent.stopPropagation();
     d3.select(this).classed("dragging", true);
@@ -1211,6 +1210,18 @@ Progress = (function(opts) {
           el = el.offsetParent;
       }
       return { top: _y, left: _x };
+  }
+
+  function getWidth() {
+    var width = $('#mainPanel').width();
+    console.log('width - ' + width);
+    return width <= 899 ? width : 960;
+  }
+
+  function getPieWidth() {
+    var number =  width < 800 ? 3 : 5;
+
+    return width / number;
   }
 
   // auto init

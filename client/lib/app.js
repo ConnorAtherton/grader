@@ -1,4 +1,5 @@
 _subscriptionComplete = false;
+var elements = {};
 
 // subscribe to all collections
 Meteor.subscribe('modules', function() {
@@ -6,6 +7,6 @@ Meteor.subscribe('modules', function() {
 });
 
 Meteor.startup(function() {
-
+  elements.$mainPanel = $('#mainPanel');
 });
 
