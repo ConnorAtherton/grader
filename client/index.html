@@ -119,14 +119,32 @@
 
 <template name="work">
   <div class="work">
-    <div class="col-xs-4">
-      {{name}}
+    <div class="col-xs-4 workEditName">
+      {{#if editingName}}
+        <div class="edit">
+          <input id="work-name-input" type="text" value="{{name}}" />
+        </div>
+      {{else}}
+          {{name}}
+      {{/if}}
     </div>
-    <div class="col-xs-4">
-      {{weight}}
+    <div class="col-xs-4 workEditWeight">
+      {{#if editingWeight}}
+        <div class="edit">
+          <input id="work-weight-input" type="text" value="{{weight}}" />
+        </div>
+      {{else}}
+          {{weight}}
+      {{/if}}
     </div>
-    <div class="col-xs-4">
-      {{mark}}
+    <div class="col-xs-4 workEditMark">
+      {{#if editingMark}}
+        <div class="edit">
+          <input id="work-mark-input" type="text" value="{{mark}}" />
+        </div>
+      {{else}}
+          {{mark}}
+      {{/if}}
     </div>
   </div>
 </template>
@@ -142,7 +160,7 @@
               <h4 class="modal-title">{{name}}</h4>
             </div>
             <div class="modal-body">
-              <div class="work">
+              <div class="workWrap">
                 {{#each work}}
                   {{> work}}
                 {{/each}}
@@ -157,16 +175,22 @@
                   <input type="text" class="form-control workWeight" placeholder="Work weight">
                   <span class="input-group-addon">%</span>
                 </div>
-                <div class="input-group">
-                  <input type="text" class="form-control workMark" placeholder="Current Overall Mark">
-                  <span class="input-group-addon">%</span>
+                <div class="workGroup">
+                  <div class="input-group col-xs-5 pull-left">
+                    <input type="text" class="form-control workMark" placeholder="Current Overall Mark">
+                    <span class="input-group-addon">%</span>
+                  </div>
+                  <div class="col-xs-2 orChoice text-center pull-left"><strong>or</strong></div>
+                  <div class="col-xs-5 pull-left">
+                      <input type="radio" class="pull-left incomplete">
+                      <div class="orChoice pull-right">Incomplete</div>
+                  </div>
                 </div>
               </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-success pull-left addWork">Add work</button>
               <button type="button" class="btn btn-default closeModuleView " data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
             </div>
           {{/with}}
         {{/if}}

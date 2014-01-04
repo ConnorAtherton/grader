@@ -6,7 +6,13 @@ Meteor.subscribe('modules', function() {
   _subscriptionComplete = true;
 });
 
+Meteor.subscribe('work', function() {
+  console.log('subscribed to work now');
+  // work subscription
+});
+
 Meteor.startup(function() {
-  elements.$mainPanel = $('#mainPanel');
+  // When editing a work name
+  Session.setDefault('editing_work_name', null);
 });
 

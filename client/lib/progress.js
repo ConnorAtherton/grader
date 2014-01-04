@@ -9,7 +9,7 @@ Progress = (function(opts) {
       _tooltip,
       _data = null,
       _converter = opts.converter || converter,
-      width = getWidth() - 30;
+      width = getWidth();
 
   // d3 global variables
   var _color = d3.scale.category20(),
@@ -478,7 +478,7 @@ Progress = (function(opts) {
 
     scatter.vars.svg = d3.select( scatter.vars.scatterEl )
       .append("svg")
-      .attr("width", scatter.vars.width - 30)
+      .attr("width", scatter.vars.width)
       .attr("height", scatter.vars.height);
 
     scatter.vars.xScale = d3.scale.ordinal()
@@ -820,6 +820,9 @@ Progress = (function(opts) {
         .data(force.vars.data.nodes)
       .enter().append('circle')
         .attr('class', 'node')
+        .attr('class', function(d) {
+            return d.name === 'You' ? 'forceOrigin' : '';
+        })
         .attr('r', function(d, i) {
           return force.calculateRadius(d);
         })
@@ -873,7 +876,7 @@ Progress = (function(opts) {
     // holds the current modules position and name
     var currentParentPos, currentParentName, currentParentObj;
 
-    tmpObj['nodes'].push({'name': 'You', 'group': 1});
+    tmpObj['nodes'].push({'name': 'You', 'group': 1, 'class': 'forcePerson'});
 
     data.forEach( function(module, index, array) {
 
@@ -1110,48 +1113,48 @@ Progress = (function(opts) {
 
   function showTooltip(data, percent) {
 
-    var coords = d3.mouse(document.body);
+  //   var coords = d3.mouse(document.body);
 
-    /**
+  //   /**
 
-      TODO:
-      - change to d3 .style() chain
+  //     TODO:
+  //     - change to d3 .style() chain
 
-    **/
+  //   **/
 
-    // add initial inline styles
-    _tooltip[0][0].style.position = 'absolute';
-    _tooltip[0][0].style.left = (coords[0] - 50 ) + 'px';
-    _tooltip[0][0].style.top = (coords[1] + 15) + 'px';
+  //   // add initial inline styles
+  //   _tooltip[0][0].style.position = 'absolute';
+  //   _tooltip[0][0].style.left = (coords[0] - 50 ) + 'px';
+  //   _tooltip[0][0].style.top = (coords[1] + 15) + 'px';
 
-    if(percent) {
-      // set the tooltip's html
-      if (data === null || data === undefined) {
-        _tooltip[0][0].innerHTML = 'Not Completed';
-      } else {
-        _tooltip[0][0].innerHTML = converter(data);
-      }
-    }
-    else {
-        _tooltip[0][0].innerHTML = data;
-    }
+  //   if(percent) {
+  //     // set the tooltip's html
+  //     if (data === null || data === undefined) {
+  //       _tooltip[0][0].innerHTML = 'Not Completed';
+  //     } else {
+  //       _tooltip[0][0].innerHTML = converter(data);
+  //     }
+  //   }
+  //   else {
+  //       _tooltip[0][0].innerHTML = data;
+  //   }
 
-    _tooltip.style('display', 'inline');
+  //   _tooltip.style('display', 'inline');
 
   }
 
 
   function removeTooltip() {
 
-    // hide the tooltip from the page
-    _tooltip[0][0].style.display = 'none';
+  //   // hide the tooltip from the page
+  //   _tooltip[0][0].style.display = 'none';
 
-    // reset the tooltip coords
-    _tooltip.style.left = 0;
-    _tooltip.style.top = 0;
+  //   // reset the tooltip coords
+  //   _tooltip.style.left = 0;
+  //   _tooltip.style.top = 0;
 
-    // reset d3.event so we can register other events
-    d3.event = '';
+  //   // reset d3.event so we can register other events
+  //   d3.event = '';
 
   }
 
@@ -1214,7 +1217,6 @@ Progress = (function(opts) {
 
   function getWidth() {
     var width = $('#mainPanel').width();
-    console.log('width - ' + width);
     return width <= 899 ? width : 960;
   }
 

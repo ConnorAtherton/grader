@@ -54,16 +54,11 @@ Template.modal.helpers({
   work: function() {
     // get current module
     var id = Session.get('selectedModule'),
-        module = Modules.findOne({_id: id});
+        work = Work.find({module_id: id});
 
-    var _names = _.keys(module.work.workData),
-        _array = _.toArray(module.work.workData);
+    console.log(work);
 
-    for( var i = 0 ; i < _array.length; i++) {
-      _array[i].name = _names[i];
-    }
-
-    return _array;
+    return work;
   }
 })
 
@@ -94,18 +89,16 @@ function saveModule(evt, tmp) {
       Modules.insert({
         name: name,
         user_id: user._id,
-        work: {
-          name: name,
-          weight: weight,
-          overallMark: mark,
-          workData: {}
-        }
-      })
+        weight: weight,
+        mark: mark
+      });
+
+      // reset the session
+      resetSession();
 
       // close the modal
       $(evt.target).closest('#viewModule')
                       .modal('hide');
-
 }
 
 function addWork(evt, tmp) {
@@ -113,21 +106,33 @@ function addWork(evt, tmp) {
   // get form variables
   var name = tmp.find('input.workName').value,
       weight = tmp.find('input.workWeight').value,
-      mark = tmp.find('input.workMark').value;
+      mark = tmp.find('input.workMark').value,
+      incomplete = tmp.find('.incomplete');
 
-  var curWork = this.work.workData;
+  // wrap node in jquery so when can use .is()
+  incomplete = $(incomplete);
 
-  curWork[name] = {
-    'weight': weight,
-    'mark': mark
-  };
-
-  var obj = {
-    name : this.work.name,
-    weight: this.work.wright,
-    overallMark: this.work.overallMark,
-    workData: curWork
+  if(incomplete.is(':checked')) {
+    // no mark
+    mark = null;
   }
 
-  Modules.update(this._id, { $set: { work: obj } });
+  var user = Meteor.user(),
+      moduleId = this._id;
+
+  Work.insert({
+    user_id: user._id,
+    module_id: this._id,
+    name: name,
+    weight: weight,
+    mark: mark
+  })
+
+  // reset the session
+  resetSession();
+
+}
+
+function resetSession() {
+  Session.set('editing_work_name', null);
 }

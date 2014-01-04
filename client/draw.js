@@ -1,20 +1,34 @@
 var progressInstances = [],
-    dataset;
+    modules,
+    work;
 
 createProgressGraphs = function(graphToDraw) {
 
-  // retrieve the data
-  dataset = Modules.find({}, {sort: {name: 1}}).fetch();
+// retrieve the data
+modules = Modules.find({}, {sort: {name: 1}}).fetch();
 
   var progressData = [];
 
-  _.each(dataset, function(el, index, list) {
-      progressData.push({
-        name: el.name,
-        weight: el.work.weight,
-        overallMark: el.work.overallMark,
-        work: el.work.workData
-      })
+  _.each(modules, function(module, index, list) {
+
+    work = Work.find({module_id: module._id}).fetch();
+
+    var progressWorkformat = {};
+
+    _.each(work, function(work, index, array) {
+        progressWorkformat[work.name] = {
+          mark: work.mark,
+          weight: work.weight
+        }
+    })
+
+    progressData.push({
+      name: module.name,
+      weight: module.weight,
+      overallMark: module.mark,
+      work: progressWorkformat
+    })
+
   })
 
   var graphs = ['pie', 'scatter', 'force'];
