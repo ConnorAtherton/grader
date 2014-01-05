@@ -8,6 +8,7 @@
 {
   height: auto;
   margin: 0 auto;
+  max-width: 960px;
 }
 
 /**
@@ -18,7 +19,7 @@
 
 #progressScatter svg
 {
-  float: left;
+  margin: auto;
 }
 
 /**
@@ -29,13 +30,9 @@
 
 #scatterListElement
 {
-  width: 250px;
-  height: 514px;
-  margin: 20px 0;
-  float: left;
+  width: 100%;
+  margin: 20px auto;
   background-color: #e8e8e8;
-  text-align: center;
-  overflow: scroll;
 }
 
 #scatterListElement .scatterCurrent
@@ -46,12 +43,13 @@
 
 .scatterModule
 {
-  width: 100%;
+  text-align: center;
+  width: 20%;
   height: 70px;
   line-height: 50px;
   color: red;
+  float: left;
   padding: 10px;
-
 }
 
 .scatterModule:hover

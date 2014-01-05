@@ -2,6 +2,19 @@
 
 /* Landscape phones and down */
 @media (max-width: 600px) {
+
+  .scatterModule
+  {
+    width: 50% !important;
+    height: 40px;
+    line-height: 20px;
+  }
+
+  #scatterCurrentElement, #scatterForecastElement
+  {
+    font-size: 1em !important;
+  }
+
   .actions {
     li > p {
       display: block;
@@ -11,6 +24,14 @@
 
 /* Landscape phone to portrait tablet */
 @media (max-width: 800px) {
+
+  // force graph styles
+  .scatterModule
+  {
+    width: 33.333%;
+    height: 50px;
+    line-height: 30px;
+  }
 
   #sidePanel {
     width: 100%;
@@ -47,5 +68,11 @@
     .content-inner {
       margin: 0; width: 100%;
     }
+  }
+ }
+
+ @media (max-width: 1200px) {
+  #mainPanel {
+    padding: 0 30px;
   }
  }
