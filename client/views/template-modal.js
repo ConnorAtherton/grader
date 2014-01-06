@@ -4,10 +4,6 @@
 // Modal template
 ////////////////////////////////////////////////////////////
 
-Template.modal.rendered = function () {
-
-}
-
 Template.modal.events({
   'click #saveChanges': function (evt) {
     var $form = $('#manage-roles-form');
@@ -31,9 +27,9 @@ Template.modal.events({
 
   'click .saveModule': saveModule,
 
-  'click .addWork': addWork,
+  'click .addWork': addWork
 
-})
+});
 
 Template.modal.helpers({
   module: function () {
@@ -56,14 +52,11 @@ Template.modal.helpers({
     var id = Session.get('selectedModule'),
         work = Work.find({module_id: id});
 
-    console.log(work);
-
     return work;
   }
 })
 
 function saveModule(evt, tmp) {
-
   // get form variables
   var name = tmp.find('input.moduleName').value,
       weight = tmp.find('input.moduleWeight').value,
@@ -102,7 +95,6 @@ function saveModule(evt, tmp) {
 }
 
 function addWork(evt, tmp) {
-
   // get form variables
   var name = tmp.find('input.workName').value,
       weight = tmp.find('input.workWeight').value,
@@ -128,11 +120,10 @@ function addWork(evt, tmp) {
     mark: mark
   })
 
-  // reset the session
-  resetSession();
-
 }
 
 function resetSession() {
-  Session.set('editing_work_name', null);
+  Session.set('viewingModule');
+  Session.set('creatingModule');
+  Session.set('selectedModule');
 }

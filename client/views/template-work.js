@@ -19,6 +19,9 @@ Template.work.events({
 
     Deps.flush() // force dom redraw so we can focus the edit field
     activateInput(tmp.find('#work-mark-input'));
+  },
+  'click .deleteWork' : function(evt, tmp) {
+    Work.remove(this._id);
   }
 
 });
@@ -29,13 +32,12 @@ Template.work.events(okCancelEvents(
     ok: function (value) {
 
       // grab input value and update the work collection
+      Work.update({_id: this._id}, { $set: { name: value }});
 
-      console.log('pressed enter', Session.get('selectedWork'));
       Session.set('editing_work_name', null);
       Session.set('selectedWork', null);
     },
     cancel: function () {
-      console.log('pressed escape');
       Session.set('editing_work_name', null);
       Session.set('selectedWork', null);
     }
@@ -47,13 +49,12 @@ Template.work.events(okCancelEvents(
     ok: function (value) {
 
       // grab input value and update the work collection
+      Work.update({_id: this._id}, { $set: { weight: value }});
 
-      console.log('pressed enter', Session.get('selectedWork'));
       Session.set('editing_work_weight', null);
       Session.set('selectedWork', null);
     },
     cancel: function () {
-      console.log('pressed escape');
       Session.set('editing_work_weight', null);
       Session.set('selectedWork', null);
     }
@@ -62,16 +63,18 @@ Template.work.events(okCancelEvents(
 Template.work.events(okCancelEvents(
   '#work-mark-input',
   {
-    ok: function (value) {
+    ok: function (value, evt, selector) {
+
+      // if the string is not a number it is null
+      value = isNumber(value) ? value : null;
 
       // grab input value and update the work collection
+      Work.update({_id: this._id}, { $set: { mark: value }});
 
-      console.log('pressed enter', Session.get('selectedWork'));
       Session.set('editing_work_mark', null);
       Session.set('selectedWork', null);
     },
     cancel: function () {
-      console.log('pressed escape');
       Session.set('editing_work_mark', null);
       Session.set('selectedWork', null);
     }
@@ -88,9 +91,4 @@ Template.work.editingWeight = function () {
 
 Template.work.editingMark = function () {
   return Session.equals('editing_work_mark', this._id);
-};
-
-var activateInput = function (input) {
-  input.focus();
-  input.select();
 };

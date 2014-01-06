@@ -18,8 +18,69 @@
   }
 }
 
+.showModuleInfo {
+ display: inline-block;
+}
+
+#moduleInfo {
+  // display: none;
+  width: 40%;
+
+  .moduleEditWeight, .moduleEditMark {
+    width: 50%; float: left;
+  }
+}
+
+.moduleName {
+  width: 30%;
+}
+
 .work {
   height: 50px;
   line-height: 50px;
   text-align: center;
+
+  .edit {
+
+    &:hover {
+      curser: pointer;
+    }
+  }
+
+  .work-icon {
+    width: 5%;
+    display: none;
+
+    &:hover {
+      curser: pointer;
+    }
+  }
+
+  &:hover {
+    .work-icon {
+      display: block;
+    }
+  }
+}
+
+.work, .module {
+  input {
+    display: inline-block;
+    padding: 0;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    margin: 10px auto;
+    max-width: 100px;
+
+    &:focus{ outline:none; border:none; background-color: yellow }
+  }
+}
+
+.workContainer {
+  width: 95%;
+}
+
+.deleteWork:hover {
+  cursor: pointer;
 }

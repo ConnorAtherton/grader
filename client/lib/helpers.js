@@ -30,3 +30,7 @@ activateInput = function (input) {
   input.focus();
   input.select();
 };
+
+isNumber = function(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
