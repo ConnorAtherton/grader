@@ -760,12 +760,11 @@ Progress = (function(opts) {
 
       // calculate the weight factor by adding up all the weights
       for (var i = 0; i < weights.length; i++) {
-        weightfactor += weights[i];
+        weightfactor += parseInt(weights[i], 10);
       };
 
       // finally divide the foreacast by the weight factor..
       forecast /= weightfactor;
-
 
       // .. and return it
       return forecast;
@@ -1179,11 +1178,22 @@ Progress = (function(opts) {
     d3.select(this).attr("cy", function(){
       var newcy = ~~d3.select(this).attr("cy") + ~~d3.event.dy;
 
+      /**
+
+        TODO:
+        - Create a function that finds the actual position of the lower y axis relative to
+          the svg
+
+      **/
+
+      var axis = $('.x.axis').attr('transform'),
+          lower = axis.replace(/\D/g, '');
+
       if(newcy < 35) {
         return 35;
       }
-      else if (newcy > 515) {
-        return 515;
+      else if (newcy > lower) {
+        return lower;
       }
       else {
         return newcy;

@@ -3,14 +3,12 @@
 .module{
   height: 50px;
   line-height: 50px;
-  padding: 0 12px;
 
   .module-icons {
     display: none;
   }
 
   &:hover {
-    background-color: @base-grey-1;
 
     .module-icons {
       display: block;
@@ -18,8 +16,9 @@
   }
 }
 
-.showModuleInfo {
- display: inline-block;
+.active {
+  color: white;
+  background-color: blue;
 }
 
 #moduleInfo {
@@ -33,6 +32,14 @@
 
 .moduleName {
   width: 30%;
+  margin: none;
+
+  h4 {
+    float: left;
+    font-size: 1.1em;
+    margin: 0;
+    line-height: 50px;
+  }
 }
 
 .work {

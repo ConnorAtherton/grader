@@ -83,6 +83,7 @@
 <template name="showDashboard">
 
   {{yield 'sidePanel'}}
+
   <div id="mainPanel">
     <div class="content-inner">
 
@@ -98,50 +99,45 @@
       <hr>
 
       {{#each modules}}
-        <div class="module" data-id="{{_id}}">
-          <div>
-            <div>
-              <section class="moduleName pull-left">
-                {{name}}
-                <span class="showModuleInfo">Show info</span>
-              </section>
-
-              <div id="moduleInfo" class="text-center pull-left">
-                <div>
-                  <div class="edit moduleEditWeight">
-                    {{#if editingModuleWeight}}
-                      <div class="edit">
-                        <input id="module-weight-input" type="text" value="{{weight}}" />
-                      </div>
-                    {{else}}
-                        {{weight}}
-                    {{/if}}
-                  </div>
-                </div>
-                <div>
-                  <div class="edit moduleEditMark">
-                    {{#if editingModuleMark}}
-                      <div class="edit">
-                        <input id="module-mark-input" type="text" value="{{mark}}" />
-                      </div>
-                    {{else}}
-                        {{mark}}
-                    {{/if}}
-                  </div>
-                </div>
-              </div>
-
-              <div class="module-icons pull-right">
-                <div class="icon-pencil module-icon editModule"></div>
-                <div class="icon-cancel module-icon deleteModule"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+        {{> module}}
       {{/each}}
 
       {{> modal}}
 
+    </div>
+  </div>
+</template>
+
+<template name="module">
+  <div class="module" data-id="{{_id}}">
+    <section class="moduleName pull-left">
+        <h4>{{name}}</h4>
+    </section>
+
+    <div id="moduleInfo" class="text-center pull-left">
+      <div class="edit moduleEditWeight">
+              {{#if editingModuleWeight}}
+                <div class="edit">
+                  <input id="module-weight-input" type="text" value="{{weight}}" />
+                </div>
+              {{else}}
+                  {{weight}}
+              {{/if}}
+      </div>
+      <div class="edit moduleEditMark">
+              {{#if editingModuleMark}}
+                <div class="edit">
+                  <input id="module-mark-input" type="text" value="{{mark}}" />
+                </div>
+              {{else}}
+                  {{mark}}
+              {{/if}}
+      </div>
+    </div>
+
+    <div class="module-icons pull-right">
+      <div class="icon-pencil module-icon editModule"></div>
+      <div class="icon-cancel module-icon deleteModule"></div>
     </div>
   </div>
 </template>

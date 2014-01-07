@@ -4,23 +4,24 @@ var progressInstances = [],
 
 createProgressGraphs = function(graphToDraw) {
 
-// retrieve the data
-modules = Modules.find({}, {sort: {name: 1}}).fetch();
+  // retrieve the data
+  modules = Modules.find({}, {sort: {name: 1}}).fetch();
 
-  var progressData = [];
+  var progressData = [],
+      progressWorkformat = {};
 
   _.each(modules, function(module, index, list) {
+    // make sure this is blank before inputting data
+    progressWorkformat = [];
 
     work = Work.find({module_id: module._id}).fetch();
-
-    var progressWorkformat = {};
 
     _.each(work, function(work, index, array) {
         progressWorkformat[work.name] = {
           mark: work.mark,
           weight: work.weight
         }
-    })
+    });
 
     progressData.push({
       name: module.name,
