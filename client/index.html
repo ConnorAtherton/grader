@@ -110,8 +110,14 @@
 
 <template name="module">
   <div class="module" data-id="{{_id}}">
-    <section class="moduleName pull-left">
-        <h4>{{name}}</h4>
+    <section class="moduleName moduleEditName pull-left">
+      {{#if editingModuleName}}
+        <div class="edit">
+          <input id="module-name-input" type="text" value="{{name}}" />
+        </div>
+      {{else}}
+          <h4>{{name}}</h4>
+      {{/if}}
     </section>
 
     <div id="moduleInfo" class="text-center pull-left">

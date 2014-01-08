@@ -35,6 +35,17 @@ Progress = (function(opts) {
       var copy = jQuery.extend(true, {}, opts.data);
       getData(opts.data);
 
+      $('svg circle').tipsy({
+        gravity: 's',
+        offset: 10,
+        html: true,
+        title: function() {
+          return $(this).attr('data-title')
+        },
+        fallback: 'whats happening'
+      });
+
+
     } catch(e) {
 
       console.error('Error initializing Progress - ', e.message, opts);
@@ -382,15 +393,8 @@ Progress = (function(opts) {
 
       }
 
-    });
+      // add tooltips back omn the new circles
 
-    // listen for hovers
-    scatter.vars.circles.on('mouseover', function (d) {
-      showTooltip(d.mark);
-    });
-
-    scatter.vars.circles.on('mouseout', function (d) {
-      removeTooltip();
     });
 
     scatter.vars.drawn = true;
@@ -430,6 +434,9 @@ Progress = (function(opts) {
        .attr('class', function(d) {
          return scatter.checkForIncompleted(d)
        })
+       .attr('data-title', function(d) {
+         return 'Name: ' + d.name + '<br>Mark: ' + d.mark+ '<br>Weight: ' + d.weight + '<br>Complete: ' + d.completed;
+       });
 
     // enter selection
     scatter.vars.circles = scatter.vars.svg.selectAll("circle")
@@ -448,6 +455,9 @@ Progress = (function(opts) {
       .attr('class', function(d) {
         return scatter.checkForIncompleted(d)
       })
+      .attr('data-title', function(d) {
+        return 'Name: ' + d.name + '<br>Mark: ' + d.mark+ '<br>Weight: ' + d.weight + '<br>Complete: ' + d.completed;
+      });
 
     // handle exit selections
     scatter.vars.circles = scatter.vars.svg.selectAll("circle")
@@ -460,16 +470,16 @@ Progress = (function(opts) {
     if(scatter.currentModuleName !== 'overall') {
       scatter.vars.svg.selectAll('.scatterIncomplete').call(drag);
     }
-    // var incompletes = scatter.vars.svg.selectAll('.scatterIncomplete').call(drag);
-    // console.log(incompletes);
 
-    // listen for hovers
-    scatter.vars.svg.selectAll("circle").on('mouseover', function (d) {
-      showTooltip(d.mark, true);
-    });
-
-   scatter.vars.svg.selectAll("circle").on('mouseout', function (d) {
-      removeTooltip();
+    // listen for hovers for tooltips
+    $('.progressScatter circle').tipsy({
+      gravity: 's',
+      offset: 10,
+      html: true,
+      title: function() {
+        return $(this).attr('data-title')
+      },
+      fallback: 'whats happening'
     });
 
   },
@@ -527,6 +537,10 @@ Progress = (function(opts) {
       .attr('class', function(d) {
         return scatter.checkForIncompleted(d)
       })
+      .attr('data-title', function(d) {
+        return 'Name: ' + d.name + '<br>Mark: ' + d.mark+ '<br>Weight: ' + d.weight + '<br>Complete: ' + d.completed;
+      });
+
 
       // set the two mark values initially to blank
       scatter.updateCurrentPercent(undefined);
@@ -646,7 +660,7 @@ Progress = (function(opts) {
 
       // add the module name and overall mark to date in the overall array
       // assert that the module is completed to start with
-      var tmpObj = {'name': value.name, 'mark': value.overallMark, 'completed': true}
+      var tmpObj = {'name': value.name, 'mark': value.overallMark, 'weight' : value.weight, 'completed': true}
 
       // create a new array in data object for this module
       scatter.vars.data[value.name] = [];
@@ -822,18 +836,23 @@ Progress = (function(opts) {
         .attr('class', function(d) {
             return d.name === 'You' ? 'forceOrigin' : '';
         })
+        .attr('data-title', function(d) {
+          return d.name === 'You' ?
+                                  'This is you' :
+                                  'Name: ' + d.name + '<br>Mark: ' + d.mark+ '<br>Weight: ' + d.weight;
+        })
         .attr('r', function(d, i) {
           return force.calculateRadius(d);
         })
         .style('fill', function(d) { return force.fillColor(d) })
         .style('stroke', function(d) { return _color(d.group); })
-        .call(force.vars.force.drag)
-        .on('mouseover', function(d) {
-          d.radius ? showTooltip(d.name + ' - ' + d.radius + '%') : showTooltip(d.name);
-        })
-        .on('mouseout', function(d) {
-          removeTooltip();
-        });
+        .call(force.vars.force.drag);
+        // .on('mouseover', function(d) {
+        //   d.radius ? showTooltip(d.name + ' - ' + d.radius + '%', this) : showTooltip(d.name, this);
+        // })
+        // .on('mouseout', function(d) {
+        //   removeTooltip();
+        // });
 
         // try reduce the inital bounce
         forwardAlpha(force.vars.force, 0.01);
@@ -882,7 +901,11 @@ Progress = (function(opts) {
       // actual module node that module work has to link too
       currentParentPos = arrayPos,
       currentParentName = module.name;
-      currentParentObj = {'name': module.name, 'group': i, 'completed': isComplete(module.overallMark)};
+      currentParentObj = {
+        'name': module.name,
+        'group': i, 'completed': isComplete(module.overallMark),
+        'mark': module.overallMark
+      };
 
         // add module name to nodes and link back to root node
         tmpObj['nodes'].push(currentParentObj);
@@ -903,7 +926,12 @@ Progress = (function(opts) {
             currentParentObj.completed = false;
           }
 
-          tmpObj['nodes'].push({'name': module.work.names[j], 'radius': module.work.weights[j], 'group': i, 'completed': isComplete(module.work.marks[j])});
+          tmpObj['nodes'].push({
+            'name': module.work.names[j],
+            'radius': module.work.weights[j],
+            'group': i, 'completed': isComplete(module.work.marks[j]),
+            'mark': module.work.marks[j]
+          });
           tmpObj['links'].push({'source': arrayPos, 'target': currentParentPos});
 
           arrayPos++;
@@ -1059,7 +1087,6 @@ Progress = (function(opts) {
 
     $.each(json, function(key, module){
 
-        // console.log( module );
         var tmpNames = [], tmpMarks = [], tmpWeights = [];
 
         for( var workName in module.work)
@@ -1108,53 +1135,6 @@ Progress = (function(opts) {
 
   function converter(number) {
     return ~~number + '%';
-  }
-
-  function showTooltip(data, percent) {
-
-  //   var coords = d3.mouse(document.body);
-
-  //   /**
-
-  //     TODO:
-  //     - change to d3 .style() chain
-
-  //   **/
-
-  //   // add initial inline styles
-  //   _tooltip[0][0].style.position = 'absolute';
-  //   _tooltip[0][0].style.left = (coords[0] - 50 ) + 'px';
-  //   _tooltip[0][0].style.top = (coords[1] + 15) + 'px';
-
-  //   if(percent) {
-  //     // set the tooltip's html
-  //     if (data === null || data === undefined) {
-  //       _tooltip[0][0].innerHTML = 'Not Completed';
-  //     } else {
-  //       _tooltip[0][0].innerHTML = converter(data);
-  //     }
-  //   }
-  //   else {
-  //       _tooltip[0][0].innerHTML = data;
-  //   }
-
-  //   _tooltip.style('display', 'inline');
-
-  }
-
-
-  function removeTooltip() {
-
-  //   // hide the tooltip from the page
-  //   _tooltip[0][0].style.display = 'none';
-
-  //   // reset the tooltip coords
-  //   _tooltip.style.left = 0;
-  //   _tooltip.style.top = 0;
-
-  //   // reset d3.event so we can register other events
-  //   d3.event = '';
-
   }
 
   var isComplete = function(mark) {
