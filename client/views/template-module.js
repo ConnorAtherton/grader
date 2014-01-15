@@ -3,6 +3,7 @@ Template.module.events({
     Session.set('editing_module_mark', null);
     Session.set('editing_module_weight', null);
     Session.set('editing_module_mark', this._id);
+    Session.set('editing_module_shortCode', null);
 
     Deps.flush() // force dom redraw so we can focus the edit field
     activateInput(tmp.find('#module-mark-input'));
@@ -12,6 +13,7 @@ Template.module.events({
     Session.set('editing_module_mark', null);
     Session.set('editing_module_weight', this._id);
     Session.set('editing_module_mark', null);
+    Session.set('editing_module_shortCode', null);
 
     Deps.flush() // force dom redraw so we can focus the edit field
     activateInput(tmp.find('#module-weight-input'));
@@ -21,9 +23,20 @@ Template.module.events({
     Session.set('editing_module_name', this._id);
     Session.set('editing_module_weight', null);
     Session.set('editing_module_mark', null);
+    Session.set('editing_module_shortCode', null);
 
     Deps.flush() // force dom redraw so we can focus the edit field
     activateInput(tmp.find('#module-name-input'));
+  },
+
+  'dblclick .moduleEditShort': function(evt, tmp) {
+    Session.set('editing_module_name', null);
+    Session.set('editing_module_weight', null);
+    Session.set('editing_module_mark', null);
+    Session.set('editing_module_shortCode', this._id);
+
+    Deps.flush() // force dom redraw so we can focus the edit field
+    activateInput(tmp.find('#module-short-input'));
   }
 });
 
@@ -84,6 +97,22 @@ Template.module.events(okCancelEvents(
   })
 );
 
+Template.module.events(okCancelEvents(
+  '#module-short-input',
+  {
+    ok: function (value) {
+
+      // grab input value and update the work collection
+      Modules.update({_id: this._id}, { $set: { shortCode: value }});
+
+      Session.set('editing_module_shortCode', null);
+    },
+    cancel: function () {
+      Session.set('editing_module_shortCode', null);
+    }
+  })
+);
+
 Template.module.editingModuleName = function () {
   return Session.equals('editing_module_name', this._id);
 };
@@ -94,5 +123,9 @@ Template.module.editingModuleWeight = function () {
 
 Template.module.editingModuleMark = function () {
   return Session.equals('editing_module_mark', this._id);
+};
+
+Template.module.editingModuleShort = function () {
+  return Session.equals('editing_module_shortCode', this._id);
 };
 

@@ -1,11 +1,25 @@
 @import "../helpers/_colors.less";
 
+
+.createModuleContainer {
+  padding: 25px 30px;
+}
+
 .module{
-  height: 50px;
-  line-height: 50px;
+  height: 80px;
+  cursor: pointer;
+  padding: 0 30px;
+  border-top: 1px solid #eaeaea;
 
   .module-icons {
     display: none;
+  }
+
+  h4 {
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 5px;
   }
 
   &:hover {
@@ -21,25 +35,16 @@
   background-color: blue;
 }
 
-#moduleInfo {
-  // display: none;
-  width: 40%;
-
-  .moduleEditWeight, .moduleEditMark {
-    width: 50%; float: left;
-  }
+.moduleEditWeight, .moduleEditMark {
+  display: inline-block;
+  font-size: 11px;
+  height: 20px;
+  line-height: 20px;
+  color: #999999;
 }
 
-.moduleName {
-  width: 30%;
-  margin: none;
-
-  h4 {
-    float: left;
-    font-size: 1.1em;
-    margin: 0;
-    line-height: 50px;
-  }
+.moduleEditMark {
+  padding-left: 30px;
 }
 
 .work {
@@ -70,7 +75,7 @@
   }
 }
 
-.work, .module {
+.work {
   input {
     display: inline-block;
     padding: 0;
@@ -78,7 +83,7 @@
     text-align: center;
     line-height: 30px;
     margin: 10px auto;
-    max-width: 100px;
+    max-width: 150px;
 
     &:focus{ outline:none; border:none; background-color: yellow }
   }

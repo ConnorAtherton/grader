@@ -96,7 +96,6 @@ Progress = (function(opts) {
             pie.vars.pieEl.appendChild( pie.vars.clickTarget );
 
             // Append created DOM element to the element used for the plugin.
-            pie.vars.pieEl.setAttribute('id', 'progressPie');
             pie.vars.pieEl.classList.add('progressPieMarks');
 
             $(pie.vars.pieEl).width( getWidth() );
@@ -174,10 +173,6 @@ Progress = (function(opts) {
                .duration(300)
                .attrTween('d', pie.tweenPie);
 
-          // clear the container's class lits then update class to represent pie state
-          pie.vars.pieEl.className = '';
-          pie.vars.pieEl.classList.add('progressPieWeights');
-
         },
 
         pie.updateMarks = function(that) {
@@ -211,10 +206,6 @@ Progress = (function(opts) {
               .ease('sin')
                .duration(250)
                .attrTween('d', pie.tweenPie);;
-
-          // clear the container's class lits then update class to represent pie state
-          pie.vars.pieEl.className = '';
-          pie.vars.pieEl.classList.add('progressPieMarks');
 
         },
 
@@ -254,7 +245,7 @@ Progress = (function(opts) {
           // collect names of modules in array
           var moduleNames = [];
           _data.forEach(function(value, index, array) {
-            var tmpArray = [value.name, value.overallMark];
+            var tmpArray = [value.shortCode, value.overallMark];
             moduleNames.push(tmpArray);
           });
 
@@ -368,6 +359,7 @@ Progress = (function(opts) {
       {
         scatter.update(scatter.vars.data.overall);
         scatter.updateCurrentPercent(scatter.vars.data.overall.overall);
+
         scatter.currentModule = scatter.vars.data.overall;
         scatter.currentModuleName = 'overall';
       }
@@ -375,6 +367,7 @@ Progress = (function(opts) {
       {
         scatter.update(scatter.vars.data[this.innerHTML]);
         scatter.updateCurrentPercent(scatter.vars.data[this.innerHTML].overall);
+
         scatter.currentModule = scatter.vars.data[this.innerHTML];
         scatter.currentModuleName = selected.innerHTML;
 
@@ -393,8 +386,6 @@ Progress = (function(opts) {
 
       }
 
-      // add tooltips back omn the new circles
-
     });
 
     scatter.vars.drawn = true;
@@ -406,9 +397,23 @@ Progress = (function(opts) {
     // remove the scatter line
     d3.select('.scatterLine').remove();
 
-    // update x axis domain
-    scatter.vars.xScale
-      .domain( d.map( function(d) { return d.name }))
+    if(d.length) {
+      if (d[0].overall) {
+        // update x axis domain
+        scatter.vars.xScale
+          .domain( d.map( function(d) { return d.shortCode }))
+      }
+      else {
+        // update x axis domain
+        scatter.vars.xScale
+          .domain( d.map( function(d) { return d.name }))
+      }
+    }
+    else {
+      // update x axis domain
+      scatter.vars.xScale
+        .domain( d.map( function(d) { return d.name }))
+    }
 
     // pass the array by value so the node information is not
     // modified
@@ -417,7 +422,7 @@ Progress = (function(opts) {
     // Update x-axis values
     scatter.vars.svg.select(".x.axis")
         .transition()
-        .duration(300)
+        .duration(250)
         .call(scatter.vars.xAxis);
 
     // Update all circles
@@ -463,8 +468,6 @@ Progress = (function(opts) {
     scatter.vars.circles = scatter.vars.svg.selectAll("circle")
       .data(d)
       .exit()
-      // .transition()
-      // .duration(100)
       .remove();
 
     if(scatter.currentModuleName !== 'overall') {
@@ -492,7 +495,7 @@ Progress = (function(opts) {
       .attr("height", scatter.vars.height);
 
     scatter.vars.xScale = d3.scale.ordinal()
-      .domain( scatter.vars.data.overall.map( function(d) { return d.name }))
+      .domain( scatter.vars.data.overall.map( function(d) { return d.shortCode }))
       .rangePoints([scatter.vars.padding, scatter.vars.width - (scatter.vars.padding)]);
 
     scatter.vars.yScale = d3.scale.linear()
@@ -541,11 +544,9 @@ Progress = (function(opts) {
         return 'Name: ' + d.name + '<br>Mark: ' + d.mark+ '<br>Weight: ' + d.weight + '<br>Complete: ' + d.completed;
       });
 
-
       // set the two mark values initially to blank
       scatter.updateCurrentPercent(undefined);
       scatter.updateForecastPercent(undefined);
-
 
   }
 
@@ -583,7 +584,7 @@ Progress = (function(opts) {
       .y( function(d) {
            return scatter.vars.yScale(d.mark);
       })
-      .interpolate('cardinal');
+      .interpolate('monotone');
 
     scatter.vars.linegroup = scatter.vars.svg.append('svg:g');
 
@@ -639,7 +640,7 @@ Progress = (function(opts) {
       // loop through data
       scatter.vars.data.overall.forEach( function( value, index, array) {
         var tmpEl = document.createElement('div');
-        tmpEl.innerHTML = value.name;
+        tmpEl.innerHTML = value.shortCode;
         tmpEl.classList.add('scatterModule');
         // tmpEl.classList.add(value.name);
 
@@ -660,29 +661,36 @@ Progress = (function(opts) {
 
       // add the module name and overall mark to date in the overall array
       // assert that the module is completed to start with
-      var tmpObj = {'name': value.name, 'mark': value.overallMark, 'weight' : value.weight, 'completed': true}
+      var tmpObj = {
+        'overall': true,
+        'name': value.name,
+        'shortCode': value.shortCode,
+        'mark': value.overallMark,
+        'weight' : value.weight,
+        'completed': true
+      }
 
       // create a new array in data object for this module
-      scatter.vars.data[value.name] = [];
+      scatter.vars.data[value.shortCode] = [];
 
       var tmpNames = [];
       var tmpMarks = [];
       var tmpWeights = [];
+      var tmpShortcodes = [];
 
-      value.work.names.forEach( function(work) {
-        tmpNames.push(work);
-      });
+      var length = tmpShortcodes.length;
+      tmpShortcodes[length] = value.shortCode;
 
       value.work.marks.forEach( function(marks) {
         tmpMarks.push(marks);
       });
 
-      value.work.names.forEach( function(work) {
-        tmpNames.push(work);
+      value.work.names.forEach( function(name) {
+        tmpNames.push(name);
       });
 
-      value.work.weights.forEach( function(marks) {
-        tmpWeights.push(marks);
+      value.work.weights.forEach( function(weight) {
+        tmpWeights.push(weight);
       });
 
       for (var i = 0; i < tmpMarks.length; i++) {
@@ -691,15 +699,21 @@ Progress = (function(opts) {
           tmpObj.completed = false;
         }
 
-        var tmpWorkObj = {'name': tmpNames[i], 'mark': tmpMarks[i], 'weight': tmpWeights[i], 'completed': isComplete(tmpMarks[i])}
-        scatter.vars.data[value.name].push(tmpWorkObj);
+        var tmpWorkObj = {
+          'name': tmpNames[i],
+          'shortCode': tmpShortcodes[i],
+          'mark': tmpMarks[i],
+          'weight': tmpWeights[i],
+          'completed': isComplete(tmpMarks[i])
+        }
+
+        scatter.vars.data[value.shortCode].push(tmpWorkObj);
 
       };
 
       scatter.vars.data.overall.push(tmpObj);
 
     }, this);
-
 
   }
 
@@ -788,7 +802,7 @@ Progress = (function(opts) {
     data: {},
     svg: null,
     width: width,
-    height: width > 600 ? width : 600,
+    height: width > 500 ? width < 800 ? width : 750 : 500,
     forceEl: opts.forcePlaceholder || document.createElement('div'),
     charge: -4000,
     friction: 0.8,
@@ -847,12 +861,6 @@ Progress = (function(opts) {
         .style('fill', function(d) { return force.fillColor(d) })
         .style('stroke', function(d) { return _color(d.group); })
         .call(force.vars.force.drag);
-        // .on('mouseover', function(d) {
-        //   d.radius ? showTooltip(d.name + ' - ' + d.radius + '%', this) : showTooltip(d.name, this);
-        // })
-        // .on('mouseout', function(d) {
-        //   removeTooltip();
-        // });
 
         // try reduce the inital bounce
         forwardAlpha(force.vars.force, 0.01);
@@ -1211,9 +1219,11 @@ Progress = (function(opts) {
   }
 
   function getPieWidth() {
-    var number =  width < 800 ? 3 : 5;
+    var number =  width < 800 ? 3 : 5,
+        radius =  width / number;
 
-    return width / number;
+    // max pie that looks good is about 180
+    return radius > 180 ? 180 : radius;
   }
 
   // auto init

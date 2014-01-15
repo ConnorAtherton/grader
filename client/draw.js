@@ -27,6 +27,7 @@ createProgressGraphs = function(graphToDraw) {
       name: module.name,
       weight: module.weight,
       overallMark: module.mark,
+      shortCode : module.shortCode,
       work: progressWorkformat
     })
 
@@ -38,9 +39,9 @@ createProgressGraphs = function(graphToDraw) {
   var progress = new Progress({
     data: progressData,
     exclude: _.without(graphs, graphToDraw),
-    piePlaceholder: document.querySelector('.progressPie'),
-    forcePlaceholder: document.querySelector('.progressForce'),
-    scatterPlaceholder: document.querySelector('.progressScatter')
+    piePlaceholder: document.querySelector('#progressPie'),
+    forcePlaceholder: document.querySelector('#progressForce'),
+    scatterPlaceholder: document.querySelector('#progressScatter')
   });
 
 }

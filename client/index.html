@@ -87,7 +87,7 @@
   <div id="mainPanel">
     <div class="content-inner">
 
-      <div class="row">
+      <div class="row createModuleContainer">
         <div class="col-lg-6 col-sm-6">
           <button class="btn btn-success createModule" type="button">Create Module</button>
         </div><!-- /.col-lg-6 -->
@@ -95,8 +95,6 @@
           <p class="pull-right text-right">show some view setting here</p>
         </div><!-- /.col-lg-6 -->
       </div><!-- /.row -->
-
-      <hr>
 
       {{#each modules}}
         {{> module}}
@@ -110,33 +108,42 @@
 
 <template name="module">
   <div class="module" data-id="{{_id}}">
-    <section class="moduleName moduleEditName pull-left">
+    <h4 class="moduleShort moduleEditShort">
+      {{#if editingModuleShort}}
+        <div class="edit">
+          <input id="module-short-input" type="text" value="{{shortCode}}" />
+        </div>
+      {{else}}
+          {{shortCode}} -
+      {{/if}}
+    </h4>
+    <h4 class="moduleName moduleEditName">
       {{#if editingModuleName}}
         <div class="edit">
           <input id="module-name-input" type="text" value="{{name}}" />
         </div>
       {{else}}
-          <h4>{{name}}</h4>
+          {{name}}
       {{/if}}
-    </section>
+    </h4>
 
-    <div id="moduleInfo" class="text-center pull-left">
+    <div id="moduleInfo" class="">
       <div class="edit moduleEditWeight">
               {{#if editingModuleWeight}}
-                <div class="edit">
+                <div class="">
                   <input id="module-weight-input" type="text" value="{{weight}}" />
                 </div>
               {{else}}
-                  {{weight}}
+                  Weight: {{weight}}%
               {{/if}}
       </div>
       <div class="edit moduleEditMark">
               {{#if editingModuleMark}}
-                <div class="edit">
+                <div class="">
                   <input id="module-mark-input" type="text" value="{{mark}}" />
                 </div>
               {{else}}
-                  {{mark}}
+                  Mark: {{mark}}%
               {{/if}}
       </div>
     </div>
@@ -236,7 +243,8 @@
             </div>
             <div class="modal-body cf">
               <div class="input-group col-xs-12">
-                <input type="text" class="form-control moduleName input-block-level" placeholder="Module name">
+                <input type="text" class="form-control moduleShort input-block-level" placeholder="Module Shortcode (max 7 chars)">
+                <input type="text" class="form-control moduleName input-block-level " placeholder="Module name">
               </div>
               <div class="input-group">
                 <input type="text" class="form-control moduleWeight" placeholder="Module weight">
@@ -267,20 +275,20 @@
 <template name="showPies">
   {{yield 'sidePanel'}}
   <div id="mainPanel">
-    <section class="progressPie"></section>
+      <section class="" id="progressPie"></section>
   </div>
 </template>
 
 <template name="showForce">
   {{yield 'sidePanel'}}
   <div id="mainPanel">
-    <section class="progressForce"></section>
+    <section class="" id="progressForce"></section>
   </div>
 </template>
 
 <template name="showScatter">
   {{yield 'sidePanel'}}
   <div id="mainPanel">
-    <section class="progressScatter"></section>
+    <section class="cf" id="progressScatter"></section>
   </div>
 </template>

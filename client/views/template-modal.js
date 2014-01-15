@@ -61,6 +61,7 @@ function saveModule(evt, tmp) {
   var name = tmp.find('input.moduleName').value,
       weight = tmp.find('input.moduleWeight').value,
       mark = tmp.find('input.moduleMark').value,
+      shortCode = tmp.find('input.moduleShort').value,
       incomplete = tmp.find('.incomplete');
 
   // wrap node in jquery so when can use .is()
@@ -83,7 +84,8 @@ function saveModule(evt, tmp) {
         name: name,
         user_id: user._id,
         weight: weight,
-        mark: mark
+        mark: mark,
+        shortCode: shortCode,
       });
 
       // reset the session

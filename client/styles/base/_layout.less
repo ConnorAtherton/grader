@@ -8,9 +8,10 @@
   float: left;
   width: 20%;
   max-width: 250px;
-  background-color: @base-grey-1;
+  background-color: white;
   height: 100%;
   padding: 30px 0;
+  border-right: 1px solid #eaeaea;
 
   & li {
     width: 100%;
@@ -39,15 +40,16 @@
 
 #mainPanel {
   width: 80%;
-  padding-right: 50px;
   float: right;
-  border-left: darken(@base-grey-1, 225%);
   height: 100%;
   overflow-y: scroll;
 
   .content-inner {
-    margin-left: 50px;
-    padding: 30px 0;
+    margin: 30px auto;
+    max-width: 960px;
+    background-color: white;
+    border: 1px solid #eaeaea;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
   }
 
   .module-icons {
