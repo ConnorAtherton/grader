@@ -1,15 +1,19 @@
 .module {
   input {
-
+    text-align: center;
 
     &:focus {
       outline: none;
       border: none;
-      background-color: yellow;
+      background-color: #f1f1f1;
+      border: 1px solid #eaeaea;
     }
-
-    // set individual height and widths for different inputs
-    #module-short-input, #module-name-input { height: 30px; }
-    #module-weight-input, #module-mark-input { height: 20px; }
   }
+
+  // set individual height and widths for different inputs
+  #module-short-input, #module-name-input { height: 30px; border: 1px solid yellow; }
+  #module-weight-input, #module-mark-input { height: 20px; border: 1px solid yellow; }
+
+  #module-short-input { width: 80px; }
+  #module-name-input { width: 100%; max-width: 500px; }
 }

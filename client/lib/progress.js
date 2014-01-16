@@ -173,6 +173,10 @@ Progress = (function(opts) {
                .duration(300)
                .attrTween('d', pie.tweenPie);
 
+          // Append created DOM element to the element used for the plugin.
+          pie.vars.pieEl.className = '';
+          pie.vars.pieEl.classList.add('progressPieWeights');
+
         },
 
         pie.updateMarks = function(that) {
@@ -205,7 +209,11 @@ Progress = (function(opts) {
           pie.vars.paths.transition()
               .ease('sin')
                .duration(250)
-               .attrTween('d', pie.tweenPie);;
+               .attrTween('d', pie.tweenPie);
+
+          // Append created DOM element to the element used for the plugin.
+          pie.vars.pieEl.className = ' ';
+          pie.vars.pieEl.classList.add('progressPieMarks');
 
         },
 
@@ -225,7 +233,10 @@ Progress = (function(opts) {
                   .enter()
                   .append('svg')
                     .attr('width', pie.vars.pieWidth)
-                    .attr('height', pie.vars.pieHeight);
+                    .attr('height', pie.vars.pieHeight)
+                    .style('margin', function() {
+                      return getPieMargin();
+                    });
 
           pie.vars.paths = pie.vars.svg.selectAll('path')
             .data(function(d, i){ return _pie(d) })
@@ -1219,11 +1230,19 @@ Progress = (function(opts) {
   }
 
   function getPieWidth() {
-    var number =  width < 800 ? 3 : 5,
-        radius =  width / number;
+    // var number =  width < 800 ? 3 : 5,
+    //     radius =  width / number;
 
+    var radius =  width / 3;
     // max pie that looks good is about 180
     return radius > 180 ? 180 : radius;
+  }
+
+  function getPieMargin () {
+    var pieWidth = getPieWidth(),
+        totalMargin = width - (3 * pieWidth);
+
+    return (totalMargin / 6) - 1 + 'px';
   }
 
   // auto init

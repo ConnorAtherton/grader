@@ -1,5 +1,5 @@
 <head>
-  <link href='http://fonts.googleapis.com/css?family=Raleway:400,700|Roboto:400,900' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro |Roboto:400,900' rel='stylesheet' type='text/css'>
   <title>Meteor Application</title>
 </head>
 <body>
@@ -90,11 +90,8 @@
       <div class="row createModuleContainer">
         <div class="col-lg-6 col-sm-6">
           <button class="btn btn-success createModule" type="button">Create Module</button>
-        </div><!-- /.col-lg-6 -->
-        <div class="col-lg-6 visible-md visible-lg">
-          <p class="pull-right text-right">show some view setting here</p>
-        </div><!-- /.col-lg-6 -->
-      </div><!-- /.row -->
+        </div>
+      </div>
 
       {{#each modules}}
         {{> module}}
@@ -107,48 +104,46 @@
 </template>
 
 <template name="module">
-  <div class="module" data-id="{{_id}}">
-    <h4 class="moduleShort moduleEditShort">
-      {{#if editingModuleShort}}
-        <div class="edit">
-          <input id="module-short-input" type="text" value="{{shortCode}}" />
-        </div>
-      {{else}}
-          {{shortCode}} -
-      {{/if}}
-    </h4>
-    <h4 class="moduleName moduleEditName">
-      {{#if editingModuleName}}
-        <div class="edit">
-          <input id="module-name-input" type="text" value="{{name}}" />
-        </div>
-      {{else}}
-          {{name}}
-      {{/if}}
-    </h4>
-
-    <div id="moduleInfo" class="">
-      <div class="edit moduleEditWeight">
-              {{#if editingModuleWeight}}
-                <div class="">
-                  <input id="module-weight-input" type="text" value="{{weight}}" />
-                </div>
-              {{else}}
-                  Weight: {{weight}}%
-              {{/if}}
+  <div class="module cf" data-id="{{_id}}">
+    <div class="module-inner pull-left">
+      <div class="moduleShort moduleEditShort">
+        {{#if editingModuleShort}}
+            <input id="module-short-input" type="text" value="{{shortCode}}" />
+        {{else}}
+            {{shortCode}} -
+        {{/if}}
       </div>
-      <div class="edit moduleEditMark">
-              {{#if editingModuleMark}}
-                <div class="">
-                  <input id="module-mark-input" type="text" value="{{mark}}" />
-                </div>
-              {{else}}
-                  Mark: {{mark}}%
-              {{/if}}
+      <div class="moduleName moduleEditName">
+        {{#if editingModuleName}}
+            <input id="module-name-input" type="text" value="{{name}}" />
+        {{else}}
+            {{name}}
+        {{/if}}
+      </div>
+
+      <div id="moduleInfo" class="">
+        <div class="edit moduleEditWeight">
+                {{#if editingModuleWeight}}
+                  <div class="">
+                    <input id="module-weight-input" type="text" value="{{weight}}" />
+                  </div>
+                {{else}}
+                    Weight: {{weight}}%
+                {{/if}}
+        </div>
+        <div class="edit moduleEditMark">
+                {{#if editingModuleMark}}
+                  <div class="">
+                    <input id="module-mark-input" type="text" value="{{mark}}" />
+                  </div>
+                {{else}}
+                    Mark: {{mark}}%
+                {{/if}}
+        </div>
       </div>
     </div>
 
-    <div class="module-icons pull-right">
+    <div class="module-icons pull-left">
       <div class="icon-pencil module-icon editModule"></div>
       <div class="icon-cancel module-icon deleteModule"></div>
     </div>
