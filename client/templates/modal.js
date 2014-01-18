@@ -1,16 +1,15 @@
-"use strict"
-
 ////////////////////////////////////////////////////////////
 // Modal template
 ////////////////////////////////////////////////////////////
+"use strict";
+
+Template.modal.rendered = function () {
+  var form = $('#addModuleParsley');
+  form.parsley();
+  console.log(form.length);
+};
 
 Template.modal.events({
-  'click #saveChanges': function (evt) {
-    var $form = $('#manage-roles-form');
-
-    console.log('Save the changes');
-  },
-
   'click .closeModuleView': function() {
     $('#viewModule').modal('hide')
 
@@ -57,12 +56,24 @@ Template.modal.helpers({
 })
 
 function saveModule(evt, tmp) {
+
+  evt.preventDefault();
+
+  $('#addModuleParsley').parsley('validate');
+
+  if (!$( '#addModuleParsley' ).parsley( 'isValid' )) {
+    console.log('Is not valid');
+    return;
+  }
+
+  // check for errors
   // get form variables
   var name = tmp.find('input.moduleName').value,
       weight = tmp.find('input.moduleWeight').value,
       mark = tmp.find('input.moduleMark').value,
       shortCode = tmp.find('input.moduleShort').value,
-      incomplete = tmp.find('.incomplete');
+      incomplete = tmp.find('.incomplete'),
+      user = Meteor.user();
 
   // wrap node in jquery so when can use .is()
   incomplete = $(incomplete);
@@ -71,14 +82,6 @@ function saveModule(evt, tmp) {
     // no mark
     mark = null;
   }
-
-  /**
-
-        TODO:
-        - vALIDATE ALL input boxes
-      **/
-
-      var user = Meteor.user();
 
       Modules.insert({
         name: name,
@@ -97,22 +100,34 @@ function saveModule(evt, tmp) {
 }
 
 function addWork(evt, tmp) {
+
+  evt.preventDefault();
+
+  $('#addWorkParsley').parsley('validate');
+
+  if (!$( '#addWorkParsley' ).parsley( 'isValid' )) {
+    console.log('Is not valid');
+    return;
+  }
+
   // get form variables
   var name = tmp.find('input.workName').value,
       weight = tmp.find('input.workWeight').value,
       mark = tmp.find('input.workMark').value,
-      incomplete = tmp.find('.incomplete');
+      incomplete = tmp.find('.incomplete'),
+      user = Meteor.user();
 
   // wrap node in jquery so when can use .is()
   incomplete = $(incomplete);
 
-  if(incomplete.is(':checked')) {
+  if (incomplete.is(':checked')) {
+    // incomplete mark
+    mark = null;
+  }
+  else if (mark === '') {
     // no mark
     mark = null;
   }
-
-  var user = Meteor.user(),
-      moduleId = this._id;
 
   Work.insert({
     user_id: user._id,

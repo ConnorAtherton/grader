@@ -1,5 +1,5 @@
 <head>
-  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro |Roboto:400,900' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro|Roboto:400,900' rel='stylesheet' type='text/css'>
   <title>Meteor Application</title>
 </head>
 <body>
@@ -29,7 +29,6 @@
     {{yield 'mainPanel'}}
   </div>
 </template>
-
 
 <template name="sidePanel">
   <div id="sidePanel">
@@ -174,7 +173,7 @@
       <div class="col-xs-4 edit workEditMark">
         {{#if editingMark}}
           <div class="edit">
-            <input id="work-mark-input" type="text" value="{{mark}}" />
+            <input id="work-mark-input" type="text" value="{{mark}}" maxlength="3"/>
           </div>
         {{else}}
             {{mark}}
@@ -201,28 +200,29 @@
                   {{> work}}
                 {{/each}}
               </div>
-
+              <form id="addWorkParsley" parsley-validate>
               <div class="addNewWork">
                 <hr />
                 <div class="input-group col-xs-12">
-                  <input type="text" class="form-control workName input-block-level" placeholder="Work name">
+                  <input type="text" parsley-trigger="change" required class="form-control workName input-block-level" placeholder="Work name">
                 </div>
                 <div class="input-group">
-                  <input type="text" class="form-control workWeight" placeholder="Work weight">
+                  <input type="text" parsley-trigger="change" parsley-type="digits" required class="form-control workWeight" placeholder="Work weight">
                   <span class="input-group-addon">%</span>
                 </div>
                 <div class="workGroup">
                   <div class="input-group col-xs-5 pull-left">
-                    <input type="text" class="form-control workMark" placeholder="Current Overall Mark">
+                    <input type="text"  parsley-trigger="change" parsley-type="digits" class="form-control workMark" placeholder="Current Overall Mark">
                     <span class="input-group-addon">%</span>
                   </div>
                   <div class="col-xs-2 orChoice text-center pull-left"><strong>or</strong></div>
                   <div class="col-xs-5 pull-left">
-                      <input type="radio" class="pull-left incomplete">
+                      <input type="radio" name="workIncomplete" class="pull-left incomplete">
                       <div class="orChoice pull-right">Incomplete</div>
                   </div>
                 </div>
               </div>
+              </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-success pull-left addWork">Add work</button>
@@ -237,29 +237,31 @@
               <h4 class="modal-title">Create new Module</h4>
             </div>
             <div class="modal-body cf">
-              <div class="input-group col-xs-12">
-                <input type="text" class="form-control moduleShort input-block-level" placeholder="Module Shortcode (max 7 chars)">
-                <input type="text" class="form-control moduleName input-block-level " placeholder="Module name">
-              </div>
-              <div class="input-group">
-                <input type="text" class="form-control moduleWeight" placeholder="Module weight">
-                <span class="input-group-addon">%</span>
-              </div>
+              <form id="addModuleParsley" parsley-validate>
+                <div class="input-group col-xs-12">
+                  <input  parsley-trigger="keyup" parsley-rangelength="[1,7]" required type="text" class="form-control moduleShort input-block-level" placeholder="Module Shortcode (max 7 chars)">
+                  <input  parsley-trigger="change" required type="text" class="form-control moduleName input-block-level " placeholder="Module name">
+                </div>
+                <div class="input-group">
+                  <input type="text" class="form-control moduleWeight" required parsley-type="digits" parsley-trigger="change" placeholder="Module weight">
+                  <span class="input-group-addon">%</span>
+                </div>
                 <div class="workGroup">
                   <div class="input-group col-xs-5 pull-left">
-                    <input type="text" class="form-control moduleMark" placeholder="Current Overall Mark">
+                    <input type="text" class="form-control moduleMark" parsley-min="0" parsley-max="100" parsley-type="digits" placeholder="Current Overall Mark">
                     <span class="input-group-addon">%</span>
                   </div>
                   <div class="col-xs-2 orChoice text-center pull-left"><strong>or</strong></div>
                   <div class="col-xs-5 pull-left">
-                      <input type="radio" class="pull-left incomplete">
+                      <input type="radio" name="rad" class="pull-left incomplete">
                       <div class="orChoice pull-right">Incomplete</div>
                   </div>
                 </div>
+              </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default closeModuleCreate" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary saveModule">Save changes</button>
+              <input type="submit" class="btn btn-primary saveModule" value="Save Changes">
             </div>
         {{/if}}
       </div><!-- /.modal-content -->
