@@ -8,19 +8,58 @@
 <template name="layout">
   {{> header}}
 
-  <section id="page" class="cf">
+  <div id="page" class="cf">
     {{yield}}
-  </section>
+  </div>
 
 </template>
 
 <template name="pageNotLoggedIn">
   <div id="hero-wrap">
-    <div id="hero">
-      <h2 class="responsiveHeader">A better way to view grades on the web.</h2>
-      <p class="coming-soon">COMING JANUARY 2014...</p>
-    </div>
+      <div id="hero">
+        <h2 class="responsiveHeader">A better way to view grades on the web.</h2>
+        <ul class="social">
+          <li class="twitter">
+            twitter button
+          </li>
+          <li class="github">
+            <iframe src="http://ghbtns.com/github-btn.html?user=ConnorAtherton&repo=Grader&type=watch&count=true"
+              allowtransparency="true" frameborder="0" scrolling="0" width="100" height="30"></iframe>
+          </li>
+        </ul>
+        <div class="arrow-down"></div>
+      </div>
+
+      <div class="btn btn-scroll border-fade">Explore</div>
   </div>
+
+  <section id="predictions">
+    <div class="inside cf">
+      <h2>Predict your grades</h2>
+      <p>Do you know what you need in your final exam to get an A? Don't worry about it anymore, Grader shows you.  </p>
+      <img src="/scatter.png" alt="">
+    </div>
+  </section>
+
+  <section id="responsive">
+    <div class="inside cf">
+      <h2>Your grades, everywhere</h2>
+      <div class="img-cover-responsive">
+
+      </div>
+    </div>
+  </section>
+
+  <section id="collaborate">
+    <div class="inside cf">
+      <h2>Want to help?</h2>
+      <p>If you have an awesome idea that could make Grader better then we'd love to hear from you.
+          Grader is an open source project, that means anyone can collaborate. Visit our <a href="">github repo</a>
+          to find out more.
+      </p>
+    </div>
+  </section>
+
 </template>
 
 <template name="pageLoggedIn">
@@ -206,14 +245,12 @@
                 <div class="input-group col-xs-12">
                   <input type="text" parsley-trigger="change" required class="form-control workName input-block-level" placeholder="Work name">
                 </div>
-                <div class="input-group">
                   <input type="text" parsley-trigger="change" parsley-type="digits" required class="form-control workWeight" placeholder="Work weight">
-                  <span class="input-group-addon">%</span>
-                </div>
+                  <!-- <span class="input-group-addon">%</span> -->
                 <div class="workGroup">
-                  <div class="input-group col-xs-5 pull-left">
+                  <div class="col-xs-5 pull-left">
                     <input type="text"  parsley-trigger="change" parsley-type="digits" class="form-control workMark" placeholder="Current Overall Mark">
-                    <span class="input-group-addon">%</span>
+                    <!-- <span class="input-group-addon">%</span> -->
                   </div>
                   <div class="col-xs-2 orChoice text-center pull-left"><strong>or</strong></div>
                   <div class="col-xs-5 pull-left">
@@ -238,23 +275,19 @@
             </div>
             <div class="modal-body cf">
               <form id="addModuleParsley" parsley-validate>
-                <div class="input-group col-xs-12">
                   <input  parsley-trigger="keyup" parsley-rangelength="[1,7]" required type="text" class="form-control moduleShort input-block-level" placeholder="Module Shortcode (max 7 chars)">
                   <input  parsley-trigger="change" required type="text" class="form-control moduleName input-block-level " placeholder="Module name">
-                </div>
-                <div class="input-group">
                   <input type="text" class="form-control moduleWeight" required parsley-type="digits" parsley-trigger="change" placeholder="Module weight">
-                  <span class="input-group-addon">%</span>
-                </div>
+                  <!-- <span class="input-group-addon">%</span> -->
                 <div class="workGroup">
-                  <div class="input-group col-xs-5 pull-left">
+                  <div class="col-xs-5 pull-left">
                     <input type="text" class="form-control moduleMark" parsley-min="0" parsley-max="100" parsley-type="digits" placeholder="Current Overall Mark">
-                    <span class="input-group-addon">%</span>
+                    <!-- <span class="input-group-addon">%</span> -->
                   </div>
                   <div class="col-xs-2 orChoice text-center pull-left"><strong>or</strong></div>
                   <div class="col-xs-5 pull-left">
                       <input type="radio" name="rad" class="pull-left incomplete">
-                      <div class="orChoice pull-right">Incomplete</div>
+                      <div class="orChoice">Incomplete</div>
                   </div>
                 </div>
               </form>
@@ -272,20 +305,20 @@
 <template name="showPies">
   {{yield 'sidePanel'}}
   <div id="mainPanel">
-      <section class="" id="progressPie"></section>
+      <div class="" id="progressPie"></div>
   </div>
 </template>
 
 <template name="showForce">
   {{yield 'sidePanel'}}
   <div id="mainPanel">
-    <section class="" id="progressForce"></section>
+    <div class="" id="progressForce"></div>
   </div>
 </template>
 
 <template name="showScatter">
   {{yield 'sidePanel'}}
   <div id="mainPanel">
-    <section class="cf" id="progressScatter"></section>
+    <div class="cf" id="progressScatter"></div>
   </div>
 </template>
