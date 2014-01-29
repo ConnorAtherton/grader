@@ -1,11 +1,11 @@
 _subscriptionComplete = false;
 
 // subscribe to all collections
-Meteor.subscribe('modules', function() {
+Meteor.subscribe('modules', function () {
   _subscriptionComplete = true;
 });
 
-Meteor.subscribe('work', function() {
+Meteor.subscribe('work', function () {
   // work subscription
 });
 

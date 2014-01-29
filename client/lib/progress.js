@@ -359,6 +359,8 @@ Progress = (function(opts) {
 
       // if another module is clicked on then reset the
       // forecasted percentage
+      console.log(scatter.vars.data)
+      scatter.updateCurrentPercent('twat');
       scatter.updateForecastPercent(undefined);
 
       var mark = undefined;
@@ -377,24 +379,10 @@ Progress = (function(opts) {
       else
       {
         scatter.update(scatter.vars.data[this.innerHTML]);
-        scatter.updateCurrentPercent(scatter.vars.data[this.innerHTML].overall);
+        scatter.updateCurrentPercent(scatter.vars.data.overallReference[this.innerHTML]);
 
         scatter.currentModule = scatter.vars.data[this.innerHTML];
         scatter.currentModuleName = selected.innerHTML;
-
-       for(var count = 0; count < scatter.vars.data.overall.length; count++) {
-
-          if(scatter.vars.data.overall[count].name === this.innerHTML) {
-            mark = scatter.vars.data.overall[count].mark;
-            break;
-          }
-
-        }
-
-        if(mark !== (undefined || null)) {
-          scatter.updateCurrentPercent(mark);
-        }
-
       }
 
     });
@@ -664,6 +652,7 @@ Progress = (function(opts) {
   scatter.format = function(data) {
 
     scatter.vars.data.overall = [];
+    scatter.vars.data.overallReference = {};
 
     data.forEach( function( value ) {
 
@@ -680,6 +669,8 @@ Progress = (function(opts) {
         'weight' : value.weight,
         'completed': true
       }
+
+      scatter.vars.data.overallReference[value.shortCode] = value.overallMark;
 
       // create a new array in data object for this module
       scatter.vars.data[value.shortCode] = [];
@@ -768,8 +759,6 @@ Progress = (function(opts) {
       scatter.currentModule.forEach(function(value, index) {
         if (!value.completed) incomplete.push(value);
       });
-
-      // console.log(incomplete, incomplete[scatter.currentWork]);
 
       // using the current index of the module that
       // has been adjusted on the scatter graph modify the mark

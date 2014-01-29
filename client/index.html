@@ -1,5 +1,5 @@
 <head>
-  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro|Roboto:400,900' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400|Roboto:400,900' rel='stylesheet' type='text/css'>
   <title>Meteor Application</title>
 </head>
 <body>
@@ -54,7 +54,7 @@
     <div class="inside cf">
       <h2>Want to help?</h2>
       <p>If you have an awesome idea that could make Grader better then we'd love to hear from you.
-          Grader is an open source project, that means anyone can collaborate. Visit our <a href="">github repo</a>
+          Grader is an open source project, that means anyone can help. Visit our <a href="https://github.com/ConnorAtherton/Grader">github repo</a>
           to find out more.
       </p>
     </div>
@@ -94,6 +94,21 @@
         <a class="" id="view-scatter" href="{{pathFor 'showScatter'}}">
           <div class="icon icon-chart-line"></div>
           <p>Scatter graph</p>
+        </a>
+      </li>
+      <li class="action evaluation">
+        <p>Evaluation</p>
+      </li>
+      <li class="action">
+        <a class="" id="view-list" href="{{pathFor 'showScatter'}}">
+          <div class="icon icon-chart-line"></div>
+          <p>List view</p>
+        </a>
+      </li>
+      <li class="action">
+        <a class="" id="view-questionnaire" href="{{pathFor 'showScatter'}}">
+          <div class="icon icon-chart-line"></div>
+          <p>Questionnaire</p>
         </a>
       </li>
     </ul>
@@ -175,7 +190,7 @@
                     <input id="module-mark-input" type="text" value="{{mark}}" />
                   </div>
                 {{else}}
-                    Mark: {{mark}}%
+                    Mark: {{isNull mark}}
                 {{/if}}
         </div>
       </div>

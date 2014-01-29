@@ -82,6 +82,9 @@ function saveModule(evt, tmp) {
     // no mark
     mark = null;
   }
+  else if (mark === '') {
+    mark = null;
+  }
 
       Modules.insert({
         name: name,
