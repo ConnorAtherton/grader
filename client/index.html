@@ -100,13 +100,13 @@
         <p>Evaluation</p>
       </li>
       <li class="action">
-        <a class="" id="view-list" href="{{pathFor 'showScatter'}}">
+        <a class="" id="view-list" href="{{pathFor 'showListView'}}">
           <div class="icon icon-chart-line"></div>
           <p>List view</p>
         </a>
       </li>
       <li class="action">
-        <a class="" id="view-questionnaire" href="{{pathFor 'showScatter'}}">
+        <a class="" id="view-questionnaire" href="{{pathFor 'showQuestions'}}">
           <div class="icon icon-chart-line"></div>
           <p>Questionnaire</p>
         </a>
@@ -335,5 +335,112 @@
   {{yield 'sidePanel'}}
   <div id="mainPanel">
     <div class="cf" id="progressScatter"></div>
+  </div>
+</template>
+
+<template name="showListView">
+  {{yield 'sidePanel'}}
+  <div id="mainPanel">
+    <div class="content-inner">
+      <div class="explanation">
+      </div>
+      <table class="listView">
+        <thead>
+          <td class="name">Name</td>
+          <td class="weight">Weight</td>
+          <td class="mark">Mark</td>
+        </thead>
+        <tbody>
+          {{#each modules}}
+            <tr class="listModule">
+              <td class="name">{{name}}</td>
+              <td class="weight">{{weight}}</td>
+              <td class="mark">{{mark}}</td>
+            </tr>
+              {{#each work _id}}
+                <tr class="hide listWork">
+                  <td class="name">{{name}}</td>
+                  <td class="weight">{{weight}}</td>
+                  <td class="mark">{{mark}}</td>
+                </tr>
+              {{/each}}
+          {{/each}}
+        </tbody>
+    </div>
+    </table>
+  </div>
+</template>
+
+<template name="showQuestions">
+  {{yield 'sidePanel'}}
+  <div id="mainPanel">
+    <div class="content-inner">
+      <div class="questions">
+        <div class="explanation">
+          Questions
+        </div>
+        <div class="question">
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, laudantium adipisci quisquam deleniti obcaecati dolore quae unde sunt saepe cupiditate!</p>
+          <form class="likert-form cf">
+            <ul class="likert likert-ul cf">
+                <li class="likert"> Not Guilty <input id="radGuiltyStart" type="radio" name="Guilty" value="1" />
+                <li class="likert"><input type="radio" name="Guilty" value="2" />
+                <li class="likert"><input type="radio" name="Guilty" value="3" />
+                <li class="likert"><input type="radio" name="Guilty" value="4" />
+                <li class="likert"><input id="radGuiltyEnd" type="radio" name="Guilty" value="5" /> Very Guilty
+            </ul>
+          </form>
+        </div>
+        <div class="question">
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, laudantium adipisci quisquam deleniti obcaecati dolore quae unde sunt saepe cupiditate!</p>
+          <form class="likert-form cf">
+            <ul class="likert likert-ul cf">
+                <li class="likert"> Not Guilty <input id="radGuiltyStart" type="radio" name="Guilty" value="1" />
+                <li class="likert"><input type="radio" name="Guilty" value="2" />
+                <li class="likert"><input type="radio" name="Guilty" value="3" />
+                <li class="likert"><input type="radio" name="Guilty" value="4" />
+                <li class="likert"><input id="radGuiltyEnd" type="radio" name="Guilty" value="5" /> Very Guilty
+            </ul>
+          </form>
+        </div>
+        <div class="question">
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, laudantium adipisci quisquam deleniti obcaecati dolore quae unde sunt saepe cupiditate!</p>
+          <form class="likert-form cf">
+            <ul class="likert likert-ul cf">
+                <li class="likert"> Not Guilty <input id="radGuiltyStart" type="radio" name="Guilty" value="1" />
+                <li class="likert"><input type="radio" name="Guilty" value="2" />
+                <li class="likert"><input type="radio" name="Guilty" value="3" />
+                <li class="likert"><input type="radio" name="Guilty" value="4" />
+                <li class="likert"><input id="radGuiltyEnd" type="radio" name="Guilty" value="5" /> Very Guilty
+            </ul>
+          </form>
+        </div>
+        <div class="question">
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, laudantium adipisci quisquam deleniti obcaecati dolore quae unde sunt saepe cupiditate!</p>
+          <form class="likert-form cf">
+            <ul class="likert likert-ul cf">
+                <li class="likert"> Not Guilty <input id="radGuiltyStart" type="radio" name="Guilty" value="1" />
+                <li class="likert"><input type="radio" name="Guilty" value="2" />
+                <li class="likert"><input type="radio" name="Guilty" value="3" />
+                <li class="likert"><input type="radio" name="Guilty" value="4" />
+                <li class="likert"><input id="radGuiltyEnd" type="radio" name="Guilty" value="5" /> Very Guilty
+            </ul>
+          </form>
+        </div>
+        <div class="question">
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, laudantium adipisci quisquam deleniti obcaecati dolore quae unde sunt saepe cupiditate!</p>
+          <form class="likert-form cf">
+            <ul class="likert likert-ul cf">
+                <li class="likert"> Not Guilty <input id="radGuiltyStart" type="radio" name="Guilty" value="1" />
+                <li class="likert"><input type="radio" name="Guilty" value="2" />
+                <li class="likert"><input type="radio" name="Guilty" value="3" />
+                <li class="likert"><input type="radio" name="Guilty" value="4" />
+                <li class="likert"><input id="radGuiltyEnd" type="radio" name="Guilty" value="5" /> Very Guilty
+            </ul>
+          </form>
+        </div>
+        <button>Submit Answers</button>
+      </div>
+    </div>
   </div>
 </template>

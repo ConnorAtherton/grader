@@ -47,6 +47,24 @@ Router.map(function() {
         }
     });
 
+    this.route('showListView', {
+        path: '/list',
+        yieldTemplates: {
+            sidePanel: {
+                to: 'sidePanel'
+            }
+        }
+    });
+
+    this.route('showQuestions', {
+        path: '/questions',
+        yieldTemplates: {
+            sidePanel: {
+                to: 'sidePanel'
+            }
+        }
+    });
+
     this.route('showPies', {
         path: '/pie',
         yieldTemplates: {

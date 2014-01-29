@@ -359,8 +359,6 @@ Progress = (function(opts) {
 
       // if another module is clicked on then reset the
       // forecasted percentage
-      console.log(scatter.vars.data)
-      scatter.updateCurrentPercent('twat');
       scatter.updateForecastPercent(undefined);
 
       var mark = undefined;
@@ -388,6 +386,18 @@ Progress = (function(opts) {
     });
 
     scatter.vars.drawn = true;
+
+    // listen for hovers for tooltips
+    $('circle').tipsy({
+      gravity: 's',
+      offset: 10,
+      fade: 'in',
+      html: true,
+      title: function() {
+        return $(this).attr('data-title')
+      },
+      fallback: 'There should be something here.. My bad.'
+    });
 
   },
 
@@ -474,14 +484,15 @@ Progress = (function(opts) {
     }
 
     // listen for hovers for tooltips
-    $('.progressScatter circle').tipsy({
+    $('circle').tipsy({
       gravity: 's',
       offset: 10,
+      fade: 'in',
       html: true,
       title: function() {
         return $(this).attr('data-title')
       },
-      fallback: 'whats happening'
+      fallback: 'There should be something here.. My bad.'
     });
 
   },
@@ -546,6 +557,17 @@ Progress = (function(opts) {
       // set the two mark values initially to blank
       scatter.updateCurrentPercent(undefined);
       scatter.updateForecastPercent(undefined);
+
+      // listen for hovers for tooltips
+      $('.progressScatter circle').tipsy({
+        gravity: 's',
+        offset: 10,
+        html: true,
+        title: function() {
+          return $(this).attr('data-title')
+        },
+        fallback: 'There should be something here.. My bad.'
+      });
 
   }
 
