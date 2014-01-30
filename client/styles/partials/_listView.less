@@ -20,15 +20,16 @@
     tr {
        width: 100%;
        height: 40px;
-       border-bottom: 1px solid darken(#eaeaea, 15%);
+       border-bottom: 1px solid #eaeaea;
 
-       &:hover {
-        background-color: lighten(#eaeaea, 5%);
-        cursor: pointer;
-       }
-
-       &.listModule { background-color: #f3f3f3; }
-       &.listWork { border-bottom: 1px solid #eaeaea; }
+       &.listModule {
+        background-color: #f9f9f9;
+        &:hover {
+         background-color: lighten(#eaeaea, 5%);
+         cursor: pointer;
+        }
+      }
+       &.listWork { }
     }
     td {
       &.name { width: 50%; text-align: left; .br; padding-left: 10px; }

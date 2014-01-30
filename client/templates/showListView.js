@@ -10,18 +10,18 @@ Template.showListView.helpers({
 
 Template.showListView.events({
   'click .listModule': function (evt, tmp) {
-    var $module = $(evt.target).parent();
+    var $module = $(evt.target).parent(),
+        id = $module.data('id');
 
     if ($module.hasClass('open')) {
-      $module.siblings('.listWork').addClass('hide');
+      $('.' + id).addClass('hide');
       $module.removeClass('open');
       return;
     }
+
     $module.addClass('open');
 
-    // hide all work
-    $('listView').addClass('.hide');
+    $('.' + id).removeClass('hide');
 
-    $module.siblings('.listWork').removeClass('hide');
   }
 });

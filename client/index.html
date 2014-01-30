@@ -352,16 +352,16 @@
         </thead>
         <tbody>
           {{#each modules}}
-            <tr class="listModule">
+            <tr class="listModule" data-id="{{_id}}">
               <td class="name">{{name}}</td>
-              <td class="weight">{{weight}}</td>
-              <td class="mark">{{mark}}</td>
+              <td class="weight">{{isNull weight}}</td>
+              <td class="mark">{{isNull mark}}</td>
             </tr>
               {{#each work _id}}
-                <tr class="hide listWork">
+                <tr class="hide listWork {{module_id}}" data-module="{{module_id}}">
                   <td class="name">{{name}}</td>
-                  <td class="weight">{{weight}}</td>
-                  <td class="mark">{{mark}}</td>
+                  <td class="weight">{{isNull weight}}</td>
+                  <td class="mark">{{isNull mark}}</td>
                 </tr>
               {{/each}}
           {{/each}}
@@ -439,7 +439,7 @@
             </ul>
           </form>
         </div>
-        <button>Submit Answers</button>
+        <button class="button">Submit Answers</button>
       </div>
     </div>
   </div>

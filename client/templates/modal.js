@@ -6,7 +6,6 @@
 Template.modal.rendered = function () {
   var form = $('#addModuleParsley');
   form.parsley();
-  console.log(form.length);
 };
 
 Template.modal.events({
@@ -62,7 +61,6 @@ function saveModule(evt, tmp) {
   $('#addModuleParsley').parsley('validate');
 
   if (!$( '#addModuleParsley' ).parsley( 'isValid' )) {
-    console.log('Is not valid');
     return;
   }
 
@@ -109,7 +107,6 @@ function addWork(evt, tmp) {
   $('#addWorkParsley').parsley('validate');
 
   if (!$( '#addWorkParsley' ).parsley( 'isValid' )) {
-    console.log('Is not valid');
     return;
   }
 
