@@ -9,6 +9,13 @@
     float: left;
     text-align: left;
     list-style-type: none;
+
+    span {
+    display: inline-block;
+
+      &.left, &.right { width: 115px; color: red; }
+      &.left { text-align: right; }
+    }
   }
 
   > input {
@@ -20,5 +27,5 @@
 .likert-form, .likert-ul {
   padding: 0;
   margin: 15px auto;
-  max-width: 350px;
+  max-width: 430px;
 }

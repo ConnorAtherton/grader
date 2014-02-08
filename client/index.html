@@ -19,9 +19,6 @@
       <div id="hero">
         <h2 class="responsiveHeader">A better way to view grades on the web.</h2>
         <ul class="social">
-          <li class="twitter">
-            twitter button
-          </li>
           <li class="github">
             <iframe src="http://ghbtns.com/github-btn.html?user=ConnorAtherton&repo=Grader&type=watch&count=true"
               allowtransparency="true" frameborder="0" scrolling="0" width="100" height="30"></iframe>
@@ -105,12 +102,14 @@
           <p>List view</p>
         </a>
       </li>
-      <li class="action">
-        <a class="" id="view-questionnaire" href="{{pathFor 'showQuestions'}}">
-          <div class="icon icon-chart-line"></div>
-          <p>Questionnaire</p>
-        </a>
-      </li>
+      {{#if notComplete}}
+        <li class="action">
+          <a class="" id="view-questionnaire" href="{{pathFor 'showQuestions'}}">
+            <div class="icon icon-chart-line"></div>
+            <p>Questionnaire</p>
+          </a>
+        </li>
+      {{/if}}
     </ul>
   </div>
 </template>
@@ -156,187 +155,6 @@
   </div>
 </template>
 
-<template name="module">
-  <div class="module cf" data-id="{{_id}}">
-    <div class="module-inner pull-left">
-      <div class="moduleShort moduleEditShort">
-        {{#if editingModuleShort}}
-            <input id="module-short-input" type="text" value="{{shortCode}}" />
-        {{else}}
-            {{shortCode}} -
-        {{/if}}
-      </div>
-      <div class="moduleName moduleEditName">
-        {{#if editingModuleName}}
-            <input id="module-name-input" type="text" value="{{name}}" />
-        {{else}}
-            {{name}}
-        {{/if}}
-      </div>
-
-      <div id="moduleInfo" class="">
-        <div class="edit moduleEditWeight">
-                {{#if editingModuleWeight}}
-                  <div class="">
-                    <input id="module-weight-input" type="text" value="{{weight}}" />
-                  </div>
-                {{else}}
-                    Weight: {{weight}}%
-                {{/if}}
-        </div>
-        <div class="edit moduleEditMark">
-                {{#if editingModuleMark}}
-                  <div class="">
-                    <input id="module-mark-input" type="text" value="{{mark}}" />
-                  </div>
-                {{else}}
-                    Mark: {{isNull mark}}
-                {{/if}}
-        </div>
-      </div>
-    </div>
-
-    <div class="module-icons pull-left">
-      <div class="icon-pencil module-icon editModule"></div>
-      <div class="icon-cancel module-icon deleteModule"></div>
-    </div>
-  </div>
-</template>
-
-<template name="work">
-  <div class="work">
-    <div class="workContainer">
-      <div class="col-xs-4 edit workEditName">
-        {{#if editingName}}
-          <div class="edit">
-            <input id="work-name-input" type="text" value="{{name}}" />
-          </div>
-        {{else}}
-            {{name}}
-        {{/if}}
-      </div>
-      <div class="col-xs-4 edit workEditWeight">
-        {{#if editingWeight}}
-          <div class="edit">
-            <input id="work-weight-input" type="text" value="{{weight}}" />
-          </div>
-        {{else}}
-            {{weight}}
-        {{/if}}
-      </div>
-      <div class="col-xs-4 edit workEditMark">
-        {{#if editingMark}}
-          <div class="edit">
-            <input id="work-mark-input" type="text" value="{{mark}}" maxlength="3"/>
-          </div>
-        {{else}}
-            {{mark}}
-        {{/if}}
-      </div>
-    </div>
-    <div class="icon-cancel work-icon deleteWork pull-right"></div>
-  </div>
-</template>
-
-<template name="modal">
-  <div id="viewModule" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        {{#if viewingModule}}
-          {{#with module}}
-            <div class="modal-header">
-              <button type="button" class="close closeModuleView" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title">{{name}}</h4>
-            </div>
-            <div class="modal-body">
-              <div class="workWrap">
-                {{#each work}}
-                  {{> work}}
-                {{/each}}
-              </div>
-              <form id="addWorkParsley" parsley-validate>
-              <div class="addNewWork">
-                <hr />
-                <div class="input-group col-xs-12">
-                  <input type="text" parsley-trigger="change" required class="form-control workName input-block-level" placeholder="Work name">
-                </div>
-                  <input type="text" parsley-trigger="change" parsley-type="digits" required class="form-control workWeight" placeholder="Work weight">
-                  <!-- <span class="input-group-addon">%</span> -->
-                <div class="workGroup">
-                  <div class="col-xs-5 pull-left">
-                    <input type="text"  parsley-trigger="change" parsley-type="digits" class="form-control workMark" placeholder="Current Overall Mark">
-                    <!-- <span class="input-group-addon">%</span> -->
-                  </div>
-                  <div class="col-xs-2 orChoice text-center pull-left"><strong>or</strong></div>
-                  <div class="col-xs-5 pull-left">
-                      <input type="radio" name="workIncomplete" class="pull-left incomplete">
-                      <div class="orChoice pull-right">Incomplete</div>
-                  </div>
-                </div>
-              </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-success pull-left addWork">Add work</button>
-              <button type="button" class="btn btn-default closeModuleView " data-dismiss="modal">Close</button>
-            </div>
-          {{/with}}
-        {{/if}}
-
-        {{#if creatingModule}}
-            <div class="modal-header">
-              <button type="button" class="close closeModuleCreate" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title">Create new Module</h4>
-            </div>
-            <div class="modal-body cf">
-              <form id="addModuleParsley" parsley-validate>
-                  <input  parsley-trigger="keyup" parsley-rangelength="[1,7]" required type="text" class="form-control moduleShort input-block-level" placeholder="Module Shortcode (max 7 chars)">
-                  <input  parsley-trigger="change" required type="text" class="form-control moduleName input-block-level " placeholder="Module name">
-                  <input type="text" class="form-control moduleWeight" required parsley-type="digits" parsley-trigger="change" placeholder="Module weight">
-                  <!-- <span class="input-group-addon">%</span> -->
-                <div class="workGroup">
-                  <div class="col-xs-5 pull-left">
-                    <input type="text" class="form-control moduleMark" parsley-min="0" parsley-max="100" parsley-type="digits" placeholder="Current Overall Mark">
-                    <!-- <span class="input-group-addon">%</span> -->
-                  </div>
-                  <div class="col-xs-2 orChoice text-center pull-left"><strong>or</strong></div>
-                  <div class="col-xs-5 pull-left">
-                      <input type="radio" name="rad" class="pull-left incomplete">
-                      <div class="orChoice">Incomplete</div>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default closeModuleCreate" data-dismiss="modal">Close</button>
-              <input type="submit" class="btn btn-primary saveModule" value="Save Changes">
-            </div>
-        {{/if}}
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
-</template>
-
-<template name="showPies">
-  {{yield 'sidePanel'}}
-  <div id="mainPanel">
-      <div class="" id="progressPie"></div>
-  </div>
-</template>
-
-<template name="showForce">
-  {{yield 'sidePanel'}}
-  <div id="mainPanel">
-    <div class="" id="progressForce"></div>
-  </div>
-</template>
-
-<template name="showScatter">
-  {{yield 'sidePanel'}}
-  <div id="mainPanel">
-    <div class="cf" id="progressScatter"></div>
-  </div>
-</template>
 
 <template name="showListView">
   {{yield 'sidePanel'}}
@@ -371,76 +189,3 @@
   </div>
 </template>
 
-<template name="showQuestions">
-  {{yield 'sidePanel'}}
-  <div id="mainPanel">
-    <div class="content-inner">
-      <div class="questions">
-        <div class="explanation">
-          Questions
-        </div>
-        <div class="question">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, laudantium adipisci quisquam deleniti obcaecati dolore quae unde sunt saepe cupiditate!</p>
-          <form class="likert-form cf">
-            <ul class="likert likert-ul cf">
-                <li class="likert"> Not Guilty <input id="radGuiltyStart" type="radio" name="Guilty" value="1" />
-                <li class="likert"><input type="radio" name="Guilty" value="2" />
-                <li class="likert"><input type="radio" name="Guilty" value="3" />
-                <li class="likert"><input type="radio" name="Guilty" value="4" />
-                <li class="likert"><input id="radGuiltyEnd" type="radio" name="Guilty" value="5" /> Very Guilty
-            </ul>
-          </form>
-        </div>
-        <div class="question">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, laudantium adipisci quisquam deleniti obcaecati dolore quae unde sunt saepe cupiditate!</p>
-          <form class="likert-form cf">
-            <ul class="likert likert-ul cf">
-                <li class="likert"> Not Guilty <input id="radGuiltyStart" type="radio" name="Guilty" value="1" />
-                <li class="likert"><input type="radio" name="Guilty" value="2" />
-                <li class="likert"><input type="radio" name="Guilty" value="3" />
-                <li class="likert"><input type="radio" name="Guilty" value="4" />
-                <li class="likert"><input id="radGuiltyEnd" type="radio" name="Guilty" value="5" /> Very Guilty
-            </ul>
-          </form>
-        </div>
-        <div class="question">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, laudantium adipisci quisquam deleniti obcaecati dolore quae unde sunt saepe cupiditate!</p>
-          <form class="likert-form cf">
-            <ul class="likert likert-ul cf">
-                <li class="likert"> Not Guilty <input id="radGuiltyStart" type="radio" name="Guilty" value="1" />
-                <li class="likert"><input type="radio" name="Guilty" value="2" />
-                <li class="likert"><input type="radio" name="Guilty" value="3" />
-                <li class="likert"><input type="radio" name="Guilty" value="4" />
-                <li class="likert"><input id="radGuiltyEnd" type="radio" name="Guilty" value="5" /> Very Guilty
-            </ul>
-          </form>
-        </div>
-        <div class="question">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, laudantium adipisci quisquam deleniti obcaecati dolore quae unde sunt saepe cupiditate!</p>
-          <form class="likert-form cf">
-            <ul class="likert likert-ul cf">
-                <li class="likert"> Not Guilty <input id="radGuiltyStart" type="radio" name="Guilty" value="1" />
-                <li class="likert"><input type="radio" name="Guilty" value="2" />
-                <li class="likert"><input type="radio" name="Guilty" value="3" />
-                <li class="likert"><input type="radio" name="Guilty" value="4" />
-                <li class="likert"><input id="radGuiltyEnd" type="radio" name="Guilty" value="5" /> Very Guilty
-            </ul>
-          </form>
-        </div>
-        <div class="question">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, laudantium adipisci quisquam deleniti obcaecati dolore quae unde sunt saepe cupiditate!</p>
-          <form class="likert-form cf">
-            <ul class="likert likert-ul cf">
-                <li class="likert"> Not Guilty <input id="radGuiltyStart" type="radio" name="Guilty" value="1" />
-                <li class="likert"><input type="radio" name="Guilty" value="2" />
-                <li class="likert"><input type="radio" name="Guilty" value="3" />
-                <li class="likert"><input type="radio" name="Guilty" value="4" />
-                <li class="likert"><input id="radGuiltyEnd" type="radio" name="Guilty" value="5" /> Very Guilty
-            </ul>
-          </form>
-        </div>
-        <button class="button">Submit Answers</button>
-      </div>
-    </div>
-  </div>
-</template>

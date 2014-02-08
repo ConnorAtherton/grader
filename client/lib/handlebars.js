@@ -12,3 +12,11 @@ Handlebars.registerHelper('workData', function(context, options) {
 
     return data;
 });
+
+Handlebars.registerHelper('notComplete', function() {
+  if(!Meteor.user())
+    return true;
+
+  return !Meteor.user().questionsComplete;
+});
+

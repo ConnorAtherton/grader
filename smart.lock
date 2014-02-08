@@ -7,7 +7,8 @@
       "accounts-ui-bootstrap-3": {},
       "iron-router": {},
       "fittext": {},
-      "parsley.js": {}
+      "parsley.js": {},
+      "mocha-web": {}
     },
     "packages": {
       "handlebar-helpers": {
@@ -17,8 +18,8 @@
       },
       "bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
-        "tag": "v0.3.7",
-        "commit": "5dd0d142c870647b910be80bc777b96f0dd45e5e"
+        "tag": "v3.1.0-1",
+        "commit": "329dccb08bfc18c635676dea600ac9953162cda9"
       },
       "accounts-ui-bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-accounts-ui-bootstrap-3.git",
@@ -37,8 +38,13 @@
       },
       "parsley.js": {
         "git": "https://github.com/amrali/parsleyjs-meteor.git",
-        "tag": "v1.2.3",
-        "commit": "79c55fe96817d6209278ab90dcb3773ee854709a"
+        "tag": "v1.2.4",
+        "commit": "b19dea8b088f429ae0ecb7fb4b52c15cc7506cf5"
+      },
+      "mocha-web": {
+        "git": "https://github.com/mad-eye/meteor-mocha-web.git",
+        "tag": "v0.1.6",
+        "commit": "5a4a3df31f7434ab8ce5575917f8be2596749e5d"
       }
     }
   }

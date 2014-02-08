@@ -5,6 +5,9 @@
     "accounts-ui-bootstrap-3": {},
     "iron-router": {},
     "fittext": {},
-    "parsley.js": {}
+    "parsley.js": {},
+    "mocha-web": {
+      "git": "https://github.com/mad-eye/meteor-mocha-web"
+    }
   }
 }

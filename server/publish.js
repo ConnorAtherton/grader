@@ -7,3 +7,8 @@ Meteor.publish('modules', function() {
 Meteor.publish('work', function() {
   return Work.find({user_id: this.userId});
 })
+
+Meteor.publish(null, function() {
+  var fields = {questionsComplete: 1}
+  return Meteor.users.find({_id: this.userId}, {fields: fields});
+})

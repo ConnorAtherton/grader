@@ -1,14 +1,26 @@
 // Use mainPanel because most routes will use it...
 Router.configure({
     layoutTemplate: 'layout',
-    before: function() {
-        var user = Meteor.user();
-        if (!user) {
-            this.render('pageNotLoggedIn');
-            return this.stop();
-        }
-    }
 });
+
+var filters = {
+    isLoggedIn: function() {
+      if (!(Meteor.loggingIn() || Meteor.user())) {
+        this.render('pageNotLoggedIn');
+        this.stop();
+      }
+    }
+}
+
+Router.before(filters.isLoggedIn, {only: [
+    'home',
+    'showDashboard',
+    'showPies',
+    'showForce',
+    'showScatter',
+    'showListView',
+    'showQuestions'
+]});
 
 Router.map(function() {
 
@@ -30,12 +42,6 @@ Router.map(function() {
                 this.stop();
             }
         }
-        // before: function () {
-        //   if (Meteor.user()) {
-        //     this.redirect('showDashboard');
-        //     this.stop();
-        //   }
-        // }
     });
 
     this.route('showDashboard', {
@@ -45,6 +51,10 @@ Router.map(function() {
                 to: 'sidePanel'
             }
         }
+    });
+
+    this.route('tests', {
+        path: '/tests'
     });
 
     this.route('showListView', {

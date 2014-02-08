@@ -1,0 +1,81 @@
+<template name="module">
+  <div class="module cf" data-id="{{_id}}">
+    <div class="module-inner pull-left">
+      <div class="moduleShort moduleEditShort">
+        {{#if editingModuleShort}}
+            <input id="module-short-input" type="text" value="{{shortCode}}" />
+        {{else}}
+            {{shortCode}} -
+        {{/if}}
+      </div>
+      <div class="moduleName moduleEditName">
+        {{#if editingModuleName}}
+            <input id="module-name-input" type="text" value="{{name}}" />
+        {{else}}
+            {{name}}
+        {{/if}}
+      </div>
+
+      <div id="moduleInfo" class="">
+        <div class="edit moduleEditWeight">
+                {{#if editingModuleWeight}}
+                  <div class="">
+                    <input id="module-weight-input" type="text" value="{{weight}}" />
+                  </div>
+                {{else}}
+                    Weight: {{weight}}%
+                {{/if}}
+        </div>
+        <div class="edit moduleEditMark">
+                {{#if editingModuleMark}}
+                  <div class="">
+                    <input id="module-mark-input" type="text" value="{{mark}}" />
+                  </div>
+                {{else}}
+                    Mark: {{isNull mark}}
+                {{/if}}
+        </div>
+      </div>
+    </div>
+
+    <div class="module-icons pull-left">
+      <div class="icon-pencil module-icon editModule"></div>
+      <div class="icon-cancel module-icon deleteModule"></div>
+    </div>
+  </div>
+</template>
+
+<template name="work">
+  <div class="work">
+    <div class="workContainer">
+      <div class="col-xs-4 edit workEditName">
+        {{#if editingName}}
+          <div class="edit">
+            <input id="work-name-input" type="text" value="{{name}}" />
+          </div>
+        {{else}}
+            {{name}}
+        {{/if}}
+      </div>
+      <div class="col-xs-4 edit workEditWeight">
+        {{#if editingWeight}}
+          <div class="edit">
+            <input id="work-weight-input" type="text" value="{{weight}}" />
+          </div>
+        {{else}}
+            {{weight}}
+        {{/if}}
+      </div>
+      <div class="col-xs-4 edit workEditMark">
+        {{#if editingMark}}
+          <div class="edit">
+            <input id="work-mark-input" type="text" value="{{mark}}" maxlength="3"/>
+          </div>
+        {{else}}
+            {{mark}}
+        {{/if}}
+      </div>
+    </div>
+    <div class="icon-cancel work-icon deleteWork pull-right"></div>
+  </div>
+</template>

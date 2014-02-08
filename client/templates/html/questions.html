@@ -1,0 +1,145 @@
+<template name="showQuestions">
+  {{yield 'sidePanel'}}
+  <div id="mainPanel">
+    <div class="content-inner">
+      {{#if complete}}
+        {{> questionsComplete}}
+      {{else}}
+        {{> questions}}
+      {{/if}}
+    </div>
+  </div>
+</template>
+
+<template name="questionsComplete">
+  <div class="questionsComplete">
+    <h3>Thanks a lot for completing the questions!</h3>
+  </div>
+</template>
+
+<template name="questions">
+        <div class="questions">
+          <div class="question question-1">
+            <p>What do you think of the overall design of Grader?</p>
+            <form class="likert-form cf" parsley-validate>
+              <ul class="likert likert-ul cf">
+                  <li class="likert"> <span class="left">Poor</span><input id="radGuiltyStart" type="radio" name="1" value="1" />
+                  <li class="likert"><input type="radio" name="1" value="2" />
+                  <li class="likert"><input type="radio" name="1" value="3" />
+                  <li class="likert"><input type="radio" name="1" value="4" />
+                  <li class="likert"><input id="radGuiltyEnd" type="radio" name="1" value="5" /> <span class="right">Excellent</span>
+              </ul>
+            </form>
+          </div>
+          <div class="question question-2">
+            <p>How could the design be improved?</p>
+            <textarea name="" id=""></textarea>
+          </div>
+          <div class="question question-3">
+            <p>Does the visualisations help you to predict your final grade?</p>
+            <form class="likert-form cf">
+              <ul class="likert likert-ul cf">
+                  <li class="likert"> <span class="left">Doesn't help at all</span> <input id="radGuiltyStart" type="radio" name="Guilty" value="1" parsley-required="true"/>
+                  <li class="likert"><input type="radio" name="Guilty" value="2" />
+                  <li class="likert"><input type="radio" name="Guilty" value="3" />
+                  <li class="likert"><input type="radio" name="Guilty" value="4" />
+                  <li class="likert"><input id="radGuiltyEnd" type="radio" name="Guilty" value="5" /> <span class="right">Helps a lot</span>
+              </ul>
+            </form>
+          </div>
+          <div class="question question-4">
+            <p>How easy is it to spot trends in your grades using the visualisations?</p>
+            <form class="likert-form cf">
+              <ul class="likert likert-ul cf">
+                  <li class="likert"> <span class="left">Very hard</span> <input id="radGuiltyStart" type="radio" name="Guilty" value="1" parsley-required="true"/>
+                  <li class="likert"><input type="radio" name="Guilty" value="2" />
+                  <li class="likert"><input type="radio" name="Guilty" value="3" />
+                  <li class="likert"><input type="radio" name="Guilty" value="4" />
+                  <li class="likert"><input id="radGuiltyEnd" type="radio" name="Guilty" value="5" /> <span class="right">Very easy</span>
+              </ul>
+            </form>
+          </div>
+          <div class="question question-5">
+            <p>Does the list view help you to predict your final grade?</p>
+            <form class="likert-form cf">
+              <ul class="likert likert-ul cf">
+                  <li class="likert"> <span class="left">Doesn't help at all</span> <input id="radGuiltyStart" type="radio" name="Guilty" value="1" parsley-required="true"/>
+                  <li class="likert"><input type="radio" name="Guilty" value="2" />
+                  <li class="likert"><input type="radio" name="Guilty" value="3" />
+                  <li class="likert"><input type="radio" name="Guilty" value="4" />
+                  <li class="likert"><input id="radGuiltyEnd" type="radio" name="Guilty" value="5" /> <span class="right">Helps a lot</span>
+              </ul>
+            </form>
+          </div>
+          <div class="question question-6">
+            <p>How easy is it to spot trends in your grades using the list view?</p>
+            <form class="likert-form cf ">
+              <ul class="likert likert-ul cf">
+                  <li class="likert"> <span class="left">Very hard</span> <input id="radGuiltyStart" type="radio" name="Guilty" value="1" parsley-required="true"/>
+                  <li class="likert"><input type="radio" name="Guilty" value="2" />
+                  <li class="likert"><input type="radio" name="Guilty" value="3" />
+                  <li class="likert"><input type="radio" name="Guilty" value="4" />
+                  <li class="likert"><input id="radGuiltyEnd" type="radio" name="Guilty" value="5" /> <span class="right">Very easy</span>
+              </ul>
+            </form>
+          </div>
+          <div class="question question-7">
+            <p>How easy is it to see which piece of work is worth the most?</p>
+            {{#if lessThanFive}}
+              <div id="force-question"></div>
+            {{else}}
+              <table class="listView">
+
+              </table>
+                <table class="listView">
+                  <thead>
+                    <td class="name">Name</td>
+                    <td class="weight">Weight</td>
+                    <td class="mark">Mark</td>
+                  </thead>
+                  <tbody>
+                      <tr class="listModule">
+                        <td class="name">Module 1</td>
+                        <td class="weight">50%</td>
+                        <td class="mark">70%</td>
+                      </tr>
+                          <tr class=" listWork">
+                            <td class="name">Work 1</td>
+                            <td class="weight">26%</td>
+                            <td class="mark">70%</td>
+                          </tr>
+                          <tr class=" listWork">
+                            <td class="name">Work 2</td>
+                            <td class="weight">26%</td>
+                            <td class="mark">55%</td>
+                          </tr>
+                          <tr class=" listWork">
+                            <td class="name">Work 3</td>
+                            <td class="weight">48%</td>
+                            <td class="mark">79%</td>
+                          </tr>
+                  </tbody>
+              </div>
+              </table>
+            {{/if}}
+            <form class="likert-form cf">
+              <ul class="likert likert-ul cf">
+                  <li class="likert"> <span class="left">Very hard</span> <input id="radGuiltyStart" type="radio" name="Guilty" value="1" parsley-required="true"/>
+                  <li class="likert"><input type="radio" name="Guilty" value="2" />
+                  <li class="likert"><input type="radio" name="Guilty" value="3" />
+                  <li class="likert"><input type="radio" name="Guilty" value="4" />
+                  <li class="likert"><input id="radGuiltyEnd" type="radio" name="Guilty" value="5" /> <span class="right">Very easy</span>
+              </ul>
+            </form>
+          </div>
+          <div class="question question-8">
+            <p>Do you have any more general comments you would like to make about grader?</p>
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+          </div>
+          <div class="question question-9">
+            <p>Please suggest any future improvements you think could be made?</p>
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+          </div>
+          <button class="button">Submit Answers</button>
+        </div>
+</template>
