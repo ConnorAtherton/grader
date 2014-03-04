@@ -813,7 +813,7 @@ Progress = (function(opts) {
         weightfactor += parseInt(weights[i], 10);
       };
 
-      // finally divide the foreacast by the weight factor..
+      // finally divide the forecast by the weight factor..
       forecast /= weightfactor;
 
       // .. and return it
@@ -959,9 +959,11 @@ Progress = (function(opts) {
           tmpObj['nodes'].push({
             'name': module.work.names[j],
             'radius': module.work.weights[j],
-            'group': i, 'completed': isComplete(module.work.marks[j]),
+            'group': i,
+            'completed': isComplete(module.work.marks[j]),
             'mark': module.work.marks[j]
           });
+
           tmpObj['links'].push({'source': arrayPos, 'target': currentParentPos});
 
           arrayPos++;

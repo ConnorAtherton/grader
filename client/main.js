@@ -14,6 +14,7 @@ var filters = {
 
 Router.before(filters.isLoggedIn, {only: [
     'home',
+    'example',
     'showDashboard',
     'showPies',
     'showForce',
@@ -55,6 +56,15 @@ Router.map(function() {
 
     this.route('tests', {
         path: '/tests'
+    });
+
+    this.route('example', {
+        path: '/example',
+        yieldTemplates: {
+            sidePanel: {
+                to: 'sidePanel'
+            }
+        }
     });
 
     this.route('showListView', {

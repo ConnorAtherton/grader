@@ -1,33 +1,14 @@
 var progressInstances = [],
     modules,
-    work,
-    progressData = [];
+    work;
 
 createProgressGraphs = function(graphToDraw) {
 
-  // retrieve the data used
-  // to instantiate progress
-  progressData = getData();
-
-  var graphs = ['pie', 'scatter', 'force'];
-
-  // Create a new progress object.
-  //  -> Should I push this instance into
-  //     an array to persist for later?
-  var progress = new Progress({
-    data: progressData,
-    exclude: _.without(graphs, graphToDraw),
-    piePlaceholder: document.querySelector('#progressPie'),
-    forcePlaceholder: document.querySelector('#progressForce'),
-    scatterPlaceholder: document.querySelector('#progressScatter')
-  });
-}
-
-var getData = function() {
   // retrieve the data
   modules = Modules.find({}, {sort: {name: 1}}).fetch();
 
-  var progressWorkformat = {};
+  var progressData = [],
+      progressWorkformat = {};
 
   _.each(modules, function(module, index, list) {
     // make sure this is blank before inputting data
@@ -49,7 +30,22 @@ var getData = function() {
       shortCode : module.shortCode,
       work: progressWorkformat
     })
+
+  })
+
+  var graphs = ['pie', 'scatter', 'force'];
+
+  // Create a new progress object.
+  //  -> Should I push this instance into
+  //     an array to persist for later?
+  var progress = new Progress({
+    data: progressData,
+    exclude: _.without(graphs, graphToDraw),
+    piePlaceholder: document.querySelector('#progressPie'),
+    forcePlaceholder: document.querySelector('#progressForce'),
+    scatterPlaceholder: document.querySelector('#progressScatter')
   });
+
 }
 
 
