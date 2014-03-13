@@ -36,14 +36,14 @@
             <textarea name="" id=""></textarea>
           </div>
           <div class="question question-3">
-            <p>Does the visualisations help you to predict your final grade?</p>
+            <p>Do the visualizations help you to predict your final grade?</p>
             <form class="likert-form cf">
               <ul class="likert likert-ul cf">
-                  <li class="likert"> <span class="left">Doesn't help at all</span> <input id="radGuiltyStart" type="radio" name="Guilty" value="1" parsley-required="true"/>
+                  <li class="likert"> <span class="left">Very hard</span> <input id="radGuiltyStart" type="radio" name="Guilty" value="1" parsley-required="true"/>
                   <li class="likert"><input type="radio" name="Guilty" value="2" />
                   <li class="likert"><input type="radio" name="Guilty" value="3" />
                   <li class="likert"><input type="radio" name="Guilty" value="4" />
-                  <li class="likert"><input id="radGuiltyEnd" type="radio" name="Guilty" value="5" /> <span class="right">Helps a lot</span>
+                  <li class="likert"><input id="radGuiltyEnd" type="radio" name="Guilty" value="5" /> <span class="right">Very easy</span>
               </ul>
             </form>
           </div>
@@ -59,6 +59,7 @@
               </ul>
             </form>
           </div>
+
           <div class="question question-5">
             <p>Does the list view help you to predict your final grade?</p>
             <form class="likert-form cf">
@@ -84,12 +85,11 @@
             </form>
           </div>
           <div class="question question-7">
-            <p>How easy is it to see which piece of work is worth the most?</p>
-            {{#if lessThanFive}}
+            <p>How easy is it to see which piece of work to prioritize first?</p>
+            {{#if lessThanFiveForce}}
               <div id="force-question"></div>
             {{else}}
               <table class="listView">
-
               </table>
                 <table class="listView">
                   <thead>
@@ -133,11 +133,53 @@
             </form>
           </div>
           <div class="question question-8">
-            <p>Do you have any more general comments you would like to make about grader?</p>
+            <p>How could you tell which work to prioritize in the last question?</p>
             <textarea name="" id="" cols="30" rows="10"></textarea>
           </div>
           <div class="question question-9">
-            <p>Please suggest any future improvements you think could be made?</p>
+            <p>What grade would you need in <strong>Work 3</strong> to achieve an overall grade of 80% for Module 1? Start the timer when you begin and click stop when your done. Please enter the number you come up with in the box below.</p>
+            {{#if lessThanFiveScatter}}
+              <div id="scatter-question" class="buttonShowIt" style="display: none;"></div>
+            {{else}}
+                <table class="listView buttonShowIt" style="display: none;">
+                  <thead>
+                    <td class="name">Name</td>
+                    <td class="weight">Weight</td>
+                    <td class="mark">Mark</td>
+                  </thead>
+                  <tbody>
+                      <tr class="listModule">
+                        <td class="name">Module 1</td>
+                        <td class="weight">50%</td>
+                        <td class="mark">70%</td>
+                      </tr>
+                          <tr class=" listWork">
+                            <td class="name">Work 1</td>
+                            <td class="weight">26%</td>
+                            <td class="mark">70%</td>
+                          </tr>
+                          <tr class=" listWork">
+                            <td class="name">Work 2</td>
+                            <td class="weight">26%</td>
+                            <td class="mark">55%</td>
+                          </tr>
+                          <tr class=" listWork">
+                            <td class="name">Work 3</td>
+                            <td class="weight">48%</td>
+                            <td class="mark">Not complete</td>
+                          </tr>
+                  </tbody>
+              </div>
+              </table>
+            {{/if}}
+            <form class="likert-form cf">
+              <div class="startButton button">Start the timer</div>
+              <div class="stopButton button">Stop the timer</div>
+              <textarea style="width: 450px; height: 50px; padding: 7px 8px; margin: 0 auto;" type="text" placeholder="enter your prediction here (just a number please)"></textarea>
+            </form>
+          </div>
+          <div class="question question-10">
+            <p>Do you have any more general comments or improvements you would like to make about grader?</p>
             <textarea name="" id="" cols="30" rows="10"></textarea>
           </div>
           <button class="button">Submit Answers</button>

@@ -1,5 +1,5 @@
 var selectQuestions = ["1", "3", "4", "5", "6", "7"],
-    textQuestion = ["2", "8", "9"];
+    textQuestion = ["2", "8", "9", "10"];
 
 var responseObj = {};
 
@@ -11,20 +11,23 @@ Template.showQuestions.complete = function () {
     return false;
 
   return Meteor.user().questionsComplete;
-}
+};
 
 Template.showQuestions.events({
   'click button': gatherData
 });
 
 function gatherData() {
-  responseObj['user_id'] =  Meteor.userId();
+  responseObj['user_id'] = Meteor.userId();
 
   getTextareaAnswers();
   getSelectAnswers();
 
-  responseObj['optionShown'] = Session.get('evaluation');
+  responseObj['optionShownPriority'] = Session.get('evaluationPriority');
+  responseObj['optionShownPredict'] = Session.get('evaluationPredict');
+  responseObj['timeTakenToPredict'] = $('.question-9').attr('data-timeTaken');
 
+  console.log(responseObj);
   // insert the evaluations object with the user_id
   Meteor.call('insertQuestions', responseObj);
   // add the questionsComplete prop on user obj

@@ -48,7 +48,7 @@
 <template name="work">
   <div class="work">
     <div class="workContainer">
-      <div class="col-xs-4 edit workEditName">
+      <div class="col-xs-4 edit workEditName text-center">
         {{#if editingName}}
           <div class="edit">
             <input id="work-name-input" type="text" value="{{name}}" />
@@ -57,7 +57,7 @@
             {{name}}
         {{/if}}
       </div>
-      <div class="col-xs-4 edit workEditWeight">
+      <div class="col-xs-4 edit workEditWeight text-center">
         {{#if editingWeight}}
           <div class="edit">
             <input id="work-weight-input" type="text" value="{{weight}}" />
@@ -66,7 +66,7 @@
             {{weight}}
         {{/if}}
       </div>
-      <div class="col-xs-4 edit workEditMark">
+      <div class="col-xs-4 edit workEditMark text-center">
         {{#if editingMark}}
           <div class="edit">
             <input id="work-mark-input" type="text" value="{{mark}}" maxlength="3"/>

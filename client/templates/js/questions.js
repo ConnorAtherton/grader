@@ -1,15 +1,28 @@
 Template.questions.rendered = function () {
   drawForceGraph();
+  drawScatterGraph();
+  bindButtons();
 };
 
-Template.questions.lessThanFive = function () {
+Template.questions.lessThanFiveForce = function () {
   var num = Math.floor(Math.random() * 10);
   if(num < 5) {
-    Session.set('evaluation', 'force');
+    Session.set('evaluationPriority', 'force');
     return true;
   }
 
-  Session.set('evaluation', 'list');
+  Session.set('evaluationPriority', 'list');
+  return false;
+}
+
+Template.questions.lessThanFiveScatter = function () {
+  var num = Math.floor(Math.random() * 10);
+  if(num < 5) {
+    Session.set('evaluationPredict', 'scatter');
+    return true;
+  }
+
+  Session.set('evaluationPredict', 'list');
   return false;
 }
 
@@ -35,6 +48,8 @@ var graph = {
 }
 
 function drawForceGraph() {
+
+  if(!document.querySelector('#force-question')) return;
 
   var width = 400,
       height = 200;
@@ -82,4 +97,83 @@ function drawForceGraph() {
           .attr("cy", function(d) { return d.y; });
     });
 
+}
+
+drawScatterGraph = function() {
+
+  var data = [{
+    "name": "Module 1",
+    "shortCode": "1",
+    "work": {
+        "Work 1": {
+            "mark": 70,
+            "weight": 26
+        },
+        "Work 2": {
+            "mark": 55,
+            "weight": 26
+        },
+        "Work 3": {
+            "mark": null,
+            "weight": 48
+        }
+    },
+    "overallMark": 70
+}, {
+    "name": "Module 2",
+    "shortCode": "2",
+    "work": {
+        "Design": {
+            "mark": 92,
+            "weight": 12
+        },
+        "Programming": {
+            "mark": 92,
+            "weight": 28
+        },
+        "Exam": {
+            "mark": 40,
+            "weight": 60
+        }
+
+    },
+    "overallMark": 61
+}];
+
+  if(!document.querySelector('#scatter-question')) return;
+
+  var progress = new Progress({
+    data: data,
+    exclude: ['pie', 'force'],
+    scatterPlaceholder: document.querySelector('#scatter-question')
+  });
+}
+
+bindButtons = function() {
+  var button = $('.startButton');
+  var stop = $('.stopButton');
+
+  var start;
+
+  stop.hide();
+
+  button.on('click', function () {
+    // show the scatter
+    $('.buttonShowIt').show();
+    // store a startTime
+    start = new Date().getTime();
+    // hide the start button
+    $(this).hide();
+    console.log('clicked timer start', start);
+    // hide stop button
+    stop.show();
+  });
+
+  // bind click listener
+  stop.on('click', function () {
+    var end = new Date().getTime();
+    $('.question-9').attr('data-timeTaken', end - start);
+    console.log('stopped the timer', end- start)
+    $('.buttonShowIt').hide()
+  });
 }

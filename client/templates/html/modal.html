@@ -9,7 +9,12 @@
               <h4 class="modal-title">{{name}}</h4>
             </div>
             <div class="modal-body">
-              <div class="workWrap">
+              <div class="workContainer">
+                <div class="col-xs-4 text-center">Name</div>
+                <div class="col-xs-4 text-center">Weight</div>
+                <div class="col-xs-4 text-center">Mark</div>
+              </div>
+              <div class="workWrap text-center">
                 {{#each work}}
                   {{> work}}
                 {{/each}}
