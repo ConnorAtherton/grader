@@ -13,7 +13,7 @@
 
 <template name="questionsComplete">
   <div class="questionsComplete">
-    <h3>Thanks a lot for completing the questions!</h3>
+    <h3 style="width: 350px; margin: 150px auto; text-align: center;">Thanks a lot for completing the questions!</h3>
   </div>
 </template>
 
@@ -39,11 +39,11 @@
             <p>Do the visualizations help you to predict your final grade?</p>
             <form class="likert-form cf">
               <ul class="likert likert-ul cf">
-                  <li class="likert"> <span class="left">Very hard</span> <input id="radGuiltyStart" type="radio" name="Guilty" value="1" parsley-required="true"/>
+                  <li class="likert"> <span class="left">Doesn't help at all</span> <input id="radGuiltyStart" type="radio" name="Guilty" value="1" parsley-required="true"/>
                   <li class="likert"><input type="radio" name="Guilty" value="2" />
                   <li class="likert"><input type="radio" name="Guilty" value="3" />
                   <li class="likert"><input type="radio" name="Guilty" value="4" />
-                  <li class="likert"><input id="radGuiltyEnd" type="radio" name="Guilty" value="5" /> <span class="right">Very easy</span>
+                  <li class="likert"><input id="radGuiltyEnd" type="radio" name="Guilty" value="5" /> <span class="right">Helps a lot</span>
               </ul>
             </form>
           </div>
@@ -137,7 +137,7 @@
             <textarea name="" id="" cols="30" rows="10"></textarea>
           </div>
           <div class="question question-9">
-            <p>What grade would you need in <strong>Work 3</strong> to achieve an overall grade of 80% for Module 1? Start the timer when you begin and click stop when your done. Please enter the number you come up with in the box below.</p>
+            <p>What grade would you need in <strong>Work 3</strong> to achieve an overall grade of 80% for Module 1? Start the timer when you begin and click stop when you're done. Please enter the number you come up with in the box below.</p>
             {{#if lessThanFiveScatter}}
               <div id="scatter-question" class="buttonShowIt" style="display: none;"></div>
             {{else}}

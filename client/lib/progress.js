@@ -1239,7 +1239,7 @@ Progress = (function(opts) {
 
   function getWidth() {
     var width = $('#mainPanel').width();
-    return width <= 899 ? width : 960;
+    return width <= 899 ? width : 900;
   }
 
   function getPieWidth() {
