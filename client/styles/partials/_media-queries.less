@@ -37,16 +37,23 @@
     line-height: 30px;
   }
 
+  .module {
+    &:hover {
+      .module-icons { display: none; }
+    }
+  }
+
   #sidePanel {
     width: 100%;
     height: auto;
     max-width: 100%;
-    background-color: @base-grey-1;
     padding: 15px 0;
 
     & .actions {
       padding: 0 20px;
       width: 100%;
+
+      .evaluation { display: none; }
 
       & li {
         float: left;

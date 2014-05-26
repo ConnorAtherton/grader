@@ -96,20 +96,20 @@
       <li class="action evaluation">
         <p>Evaluation</p>
       </li>
-      <li class="action">
+      <li class="action evaluation">
         <a class="" id="view-list" href="{{pathFor 'showListView'}}">
           <div class="icon icon-chart-line"></div>
           <p>List view</p>
         </a>
       </li>
       {{#if notComplete}}
-        <li class="action">
+        <li class="action evaluation">
           <a class="" id="view-example" href="{{pathFor 'example'}}">
             <div class="icon icon-chart-line"></div>
             <p>Example scatter</p>
           </a>
         </li>
-        <li class="action">
+        <li class="action evaluation">
           <a class="" id="view-questionnaire" href="{{pathFor 'showQuestions'}}">
             <div class="icon icon-chart-line"></div>
             <p>Questionnaire</p>
@@ -121,9 +121,7 @@
 </template>
 
 <template name="mainPanel">
-    <div id="mainPanel">
-      <p>Main Panel</p>
-    </div>
+    <div id="mainPanel"></div>
 </template>
 
 <template name="header">
@@ -194,4 +192,3 @@
     </table>
   </div>
 </template>
-
